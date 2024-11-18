@@ -23,7 +23,7 @@
         <!-- Add icons to the links using the .nav-icon class
              with font-awesome or any other icon font library -->
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('dashboard') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
             <p>
               Dashboard
@@ -33,25 +33,31 @@
         
         <li class="nav-header">Menu</li>
         <li class="nav-item">
-          <a href="{{ route("product")}}" class="nav-link">
+          <a href="#" class="nav-link">
+            <i class="fas fa-folder nav-icon"></i>
+            <p>Kategori</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a href="{{ route('admin.product.index') }}" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Produk</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route("stock")}}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Stok</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route("report")}}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Laporan</p>
           </a>
         </li>
         <li class="nav-item">
-          <a href="{{ route("product")}}" class="nav-link">
+          <a href="#" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>User</p>
           </a>

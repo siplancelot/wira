@@ -5,12 +5,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Product</h1>
+                <h1 class="m-0">Product Detail</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
-                    <li class="breadcrumb-item active">Product</li>
+                    <li class="breadcrumb-item">Product</li>
+                    <li class="breadcrumb-item active">Product Detail</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -23,11 +24,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Data Produk</h3>
+                        <h3 class="card-title">Data Produk Variant</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{route("product-tambah")}}" class="btn btn-primary">
+                        <a href="#" class="btn btn-primary">
                             Tambah Data
                         </a>
                         <table class="myTable table table-bordered table-hover">
@@ -35,7 +36,6 @@
                                 <tr>
                                     <th style="width: 10%">No</th>
                                     <th>Nama</th>
-                                    <th>Harga</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
@@ -43,14 +43,9 @@
                                 <tr>
                                     <td>1</td>
                                     <td>Indomie</td>
-                                    <td>
-                                       Rp 8.000,00
-                                    </td>
                                     <td class="text-center">
-                                        <a href="{{route("product-detail")}}" class="btn btn-primary">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                        <a href="{{route("product-edit", 1)}}" class="btn btn-warning">
+                                        
+                                        <a href="#" class="btn btn-warning">
                                             <i class="fas fa-pencil-alt"></i>
                                         </a>
                                         <a href="#" class="btn btn-danger">

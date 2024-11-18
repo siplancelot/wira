@@ -5,13 +5,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0">Tambah Product</h1>
+                <h1 class="m-0">Ubah Product</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="#">Home</a></li>
                     <li class="breadcrumb-item">Product</li>
-                    <li class="breadcrumb-item active">Tambah Product</li>
+                    <li class="breadcrumb-item active">Ubah Product</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -24,11 +24,11 @@
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Form Tambah Produk</h3>
+                        <h3 class="card-title">Form Ubah Produk</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <form action="{{ route('admin.product.store') }}" method="POST">
+                        <form action="#">
                           <div class="row">
                             <div class="col-md-6">
                               <div class="form-group">
@@ -40,23 +40,16 @@
                               <div class="form-group">
                                 <label>Kategori Produk</label>
                                 <select name="kategori" id="kategori" class="form-control">
-                                  <option value="0">Pilih Kategori</option>
-                                  @foreach ($categories as $category)
-                                      <option value="{{ $category->id }}">{{ $category->category_name }}</option>
-                                  @endforeach
+                                  <option value="0">--Pilih Kategori--</option>
+                                  <option value="1">Kategori 1</option>
+                                  <option value="2">Kategori 2</option>
                                 </select>
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Harga Beli</label>
-                                <input type="text" class="form-control" name="harga_beli" id="harga_beli" placeholder="Masukkan Harga Beli">
-                              </div>
-                            </div>
-                            <div class="col-md-6">
-                              <div class="form-group">
-                                <label>Harga Jual</label>
-                                <input type="text" class="form-control" name="harga_jual" id="harga_jual" placeholder="Masukkan Harga Jual">
+                                <label>Harga Produk</label>
+                                <input type="text" class="form-control" name="harga" id="harga" placeholder="Masukkan Harga Produk">
                               </div>
                             </div>
                             <div class="col-md-6">
@@ -72,7 +65,7 @@
                               </div>
                             </div>
                           </div>
-                          <button type="submit" class="btn btn-primary">Simpan</button>
+                          <button type="submit" class="btn btn-primary">Ubah Data</button>
                         </form>
                     </div>
                     <!-- /.card-body -->
