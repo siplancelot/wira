@@ -7,8 +7,7 @@ use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
 use App\Models\Category;
 use App\Models\Product;
-use Illuminate\Container\Attributes\DB;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
@@ -45,8 +44,8 @@ class ProductController extends Controller
         DB::transaction(function () use ($request) {
             $validated = $request->validated();
 
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('product-images', 'public');
+            if ($request->hasFile('product_image')) {
+                $imagePath = $request->file('product_image')->store('productImages', 'public');
                 $validated['product_image'] = $imagePath;
             }
 
@@ -67,9 +66,11 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(int $id)
+    public function edit(Product $product)
     {
-        return view('pages.product.edit');
+        $categories = Category::all();
+
+        return view('pages.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -80,18 +81,18 @@ class ProductController extends Controller
         DB::transaction(function () use ($request, $product) {
             $validated = $request->validated();
 
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('product_image')) {
                 if ($product->product_image) {
                     Storage::delete($product->product_image);
                 }
-                $imagePath = $request->file('image')->store('product-images', 'public');
+                $imagePath = $request->file('product_image')->store('productImages', 'public');
                 $validated['product_image'] = $imagePath;
             }
 
             $product->update($validated);
         });
 
-        return redirect()->route('admin.product.index')->with('success', 'Product updated successfully');
+        return redirect()->route('admin.product.index');
     }
 
     /**
@@ -100,10 +101,9 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         DB::transaction(function () use ($product) {
-            Storage::delete($product->product_image);
             $product->delete();
         });
 
-        return redirect()->route('admin.product.index')->with('success', 'Product deleted successfully');
+        return redirect()->route('admin.product.index');
     }
 }

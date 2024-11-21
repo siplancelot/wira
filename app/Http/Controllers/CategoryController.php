@@ -69,7 +69,7 @@ class CategoryController extends Controller
             $category->update($validated);
         });
 
-        return redirect()->route('admin.category.index')->with('success', 'Category updated successfully');
+        return redirect()->route('admin.category.index');
     }
 
     /**

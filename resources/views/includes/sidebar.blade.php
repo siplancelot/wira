@@ -33,7 +33,7 @@
         
         <li class="nav-header">Menu</li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('admin.category.index') }}" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Kategori</p>
           </a>
@@ -45,7 +45,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{ route('admin.stock.index') }}" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Stok</p>
           </a>

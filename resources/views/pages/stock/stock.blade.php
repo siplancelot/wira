@@ -9,7 +9,7 @@
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
-                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item active">Stok</li>
                 </ol>
             </div><!-- /.col -->
@@ -38,14 +38,16 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td>1</td>
-                                    <td>Indomie</td>
-                                    <td>100</td>
-                                    <td class="text-center">
-                                        <a href="{{route("stock-detail")}}" class="btn btn-primary">
-                                            <i class="fas fa-eye"></i>
-                                        </a>
-                                    </td>
+                                    @forelse ($stocks as $stock)
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $stock->product->product_name }}</td>
+                                        <td>{{ $stock->stock }}</td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary">Detail</a>
+                                        </td>
+                                    @empty
+                                        <td colspan="4" class="text-center">Tidak ada data</td>
+                                    @endforelse
                                 </tr>
                             </tbody>
 
