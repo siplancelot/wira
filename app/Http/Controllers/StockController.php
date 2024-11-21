@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Models\Stock;
 use Illuminate\Http\Request;
 
 class StockController extends Controller
@@ -12,7 +13,9 @@ class StockController extends Controller
      */
     public function index()
     {
-        return view('pages.stock.stock');
+        $stocks = Stock::with('product')->paginate(10);
+
+        return view('pages.stock.stock', compact('stocks'));
     }
 
     public function detail(){
