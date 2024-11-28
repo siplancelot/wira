@@ -19,6 +19,7 @@ return new class extends Migration
             $table->integer('sell_price');
             $table->string('product_image')->nullable();
             $table->longText('product_description')->nullable();
+            $table->integer('parent_id')->nullable();
             $table->timestamps(); 
             $table->softDeletes();
         });

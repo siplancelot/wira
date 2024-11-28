@@ -28,6 +28,7 @@ class UpdateProductRequest extends FormRequest
             'sell_price' => 'sometimes|numeric|min:0',
             'product_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'product_description' => 'nullable|string',
+            'parent_id' => 'nullable|integer',
         ];
     }
 }

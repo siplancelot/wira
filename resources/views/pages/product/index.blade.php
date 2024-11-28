@@ -42,29 +42,31 @@
                             </thead>
                             <tbody>
                                 @foreach ($products as $product)
-                                    <tr>
-                                        <td>{{ $loop->iteration }}</td>
-                                        <td>{{ $product->product_name }}</td>
-                                        <td>{{ $product->category->category_name }}</td>
-                                        <td>
-                                            Rp {{ number_format($product->sell_price, 0, ',', '.') }}
-                                        </td>
-                                        <td class="text-center">
-                                            <a href="{{ route('admin.product.show', $product) }}" class="btn btn-primary">
-                                                <i class="fas fa-eye"></i>
-                                            </a>
-                                            <a href="{{ route('admin.product.edit', $product) }}" class="btn btn-warning">
-                                                <i class="fas fa-pencil-alt"></i>
-                                            </a>
-                                            <form action="{{ route('admin.product.destroy', $product) }}" method="POST" class="d-inline">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="btn btn-danger">
-                                                    <i class="fas fa-trash-alt"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    </tr>
+                                    @if ($product->parent_id === 0)
+                                        <tr>
+                                            <td>{{ $loop->iteration }}</td>
+                                            <td>{{ $product->product_name }}</td>
+                                            <td>{{ $product->category->category_name }}</td>
+                                            <td>
+                                                Rp {{ number_format($product->sell_price, 0, ',', '.') }}
+                                            </td>
+                                            <td class="text-center">
+                                                <a href="{{ route('admin.product.show', $product) }}" class="btn btn-primary">
+                                                    <i class="fas fa-eye"></i>
+                                                </a>
+                                                <a href="{{ route('admin.product.edit', $product) }}" class="btn btn-warning">
+                                                    <i class="fas fa-pencil-alt"></i>
+                                                </a>
+                                                <form action="{{ route('admin.product.destroy', $product) }}" method="POST" class="d-inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger">
+                                                        <i class="fas fa-trash-alt"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
