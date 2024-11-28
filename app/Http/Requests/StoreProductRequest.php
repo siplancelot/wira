@@ -23,6 +23,7 @@ class StoreProductRequest extends FormRequest
     {
         return [
             'category_id' => 'required|exists:categories,id',
+            'parent_id' => 'nullable|integer',
             'product_name' => 'required|string|max:255',
             'buy_price' => 'required|numeric|min:0',
             'sell_price' => 'required|numeric|min:0',

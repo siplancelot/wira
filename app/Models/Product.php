@@ -19,6 +19,7 @@ class Product extends Model
         'sell_price',
         'product_image',
         'product_description',
+        'parent_id'
     ];
 
     /**

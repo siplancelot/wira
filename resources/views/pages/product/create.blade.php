@@ -66,6 +66,19 @@
                                 <input type="file" class="form-control" name="product_image" id="product_image">
                               </div>
                             </div>
+                            <div class="col-md-6">
+                              <div class="form-group">
+                                <label>Product Parent</label>
+                                <select class="form-select form-control" aria-label="Default select example" name="parent_id">
+                                    <option value="0">Open this select menu</option>
+                                    @foreach($products as $product)
+                                        <option value="{{ $product->id }}">
+                                            {{ $product->product_name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                              </div>
+                            </div>
                             <div class="col-md-12">
                               <div class="form-group">
                                 <label>Deskripsi Produk</label>
