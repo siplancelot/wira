@@ -32,8 +32,9 @@ class ProductController extends Controller
     public function create()
     {
         $categories = Category::all();
+        $products = Product::with('category')->get();
         
-        return view('pages.product.create', compact('categories'));
+        return view('pages.product.create', compact('categories', 'products'));
     }
 
     /**
@@ -43,6 +44,8 @@ class ProductController extends Controller
     {
         DB::transaction(function () use ($request) {
             $validated = $request->validated();
+
+            $validated['parent_id'] = $validated['parent_id'] ?? 0;
 
             if ($request->hasFile('product_image')) {
                 $imagePath = $request->file('product_image')->store('productImages', 'public');
