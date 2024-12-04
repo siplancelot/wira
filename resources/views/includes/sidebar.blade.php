@@ -33,23 +33,67 @@
         
         <li class="nav-header">Menu</li>
         <li class="nav-item">
-          <a href="{{ route('admin.category.index') }}" class="nav-link">
-            <i class="fas fa-folder nav-icon"></i>
-            <p>Kategori</p>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-folder nav-icon"></i>
+            <p>
+              Produk
+              <i class="right fas fa-angle-left"></i>
+            </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="{{ route('admin.product.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Data Produk</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.category.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Kategori Produk</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="{{ route('admin.stock.index') }}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Manajemen Stok</p>
+              </a>
+            </li>
+            
+          </ul>
         </li>
         <li class="nav-item">
-          <a href="{{ route('admin.product.index') }}" class="nav-link">
-            <i class="fas fa-folder nav-icon"></i>
-            <p>Produk</p>
+          <a href="#" class="nav-link">
+            <i class="nav-icon fas fa-folder nav-icon"></i>
+            <p>
+              Transaksi
+              <i class="right fas fa-angle-left"></i>
+            </p>
           </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Pemesanan</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Pemasukan</p>
+              </a>
+            </li><li class="nav-item">
+              <a href="" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Pengeluaran</p>
+              </a>
+            </li>
+            
+
+            
+          </ul>
         </li>
-        <li class="nav-item">
-          <a href="{{ route('admin.stock.index') }}" class="nav-link">
-            <i class="fas fa-folder nav-icon"></i>
-            <p>Stok</p>
-          </a>
-        </li>
+        
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
