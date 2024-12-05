@@ -106,12 +106,6 @@ class ProductSeeder extends Seeder
                     'parent_id' => 0,
                 ]);
 
-                Stock::create([
-                    'product_id' => $product->id,
-                    'stock' => 0,
-
-                ]);
-
                 if (isset($itemData['variants'])) {
                     foreach ($itemData['variants'] as $variantData) {
                         $variant = Product::create([
