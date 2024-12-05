@@ -41,4 +41,14 @@ class Product extends Model
     {
         return $this->hasOne(Stock::class);
     }
+
+    /**
+     * Get the orderDT that owns the Product
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function orderDT(): BelongsTo
+    {
+        return $this->belongsTo(OrderDt::class, 'product_id');
+    }
 }

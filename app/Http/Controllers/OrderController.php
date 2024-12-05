@@ -3,9 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInputOrderDTRequest;
+use App\Http\Requests\StoreInputOrderHDRequest;
+use App\Models\OrderDt;
 use Illuminate\Http\Request;
 
 use App\Models\OrderHd;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -17,14 +21,27 @@ class OrderController extends Controller
         return view("pages.transaction.order.index");
     }
 
-    public function inputOrderHd(Request $request){
-        
+    public function inputOrderHd(StoreInputOrderHDRequest $request){
+        $orderHD = DB::transaction(function() use ($request) {
+            $validated = $request->validated();
+
+            return OrderHd::create($validated);
+        });
+
+        return response()->json([
+            'id' => $orderHD->id
+        ]);
     }
 
-    public function inputOrderDt(Request $request){
-        
-    }
+    public function inputOrderDt(StoreInputOrderDTRequest $request){
+        $orderDT = DB::transaction(function() use ($request) {
+            $validated = $request->validated();
 
+            return OrderDt::create($validated);
+        });
+
+        return response()->json($orderDT);
+    }
 
     /**
      * Show the form for creating a new resource.

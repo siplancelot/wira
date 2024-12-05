@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\UpdateStockRequest;
 use App\Models\Stock;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -57,9 +59,15 @@ class StockController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateStockRequest $request, Stock $stock)
     {
-        //
+        $stock = DB::transaction(function() use ($request, $stock) {
+            $validated = $request->validated();
+
+            return $stock->update($validated);
+        });
+
+        return response()->json($stock);
     }
 
     /**
