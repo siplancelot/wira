@@ -5,27 +5,23 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\OrderHd;
-
-class OrderController extends Controller
+class TransactionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view("pages.transaction.order.index");
+        //
     }
 
-    public function inputOrderHd(Request $request){
-        
+    public function viewIncome(){
+        return view('pages.transaction.income.index');
     }
 
-    public function inputOrderDt(Request $request){
-        
+    public function viewOutcome(){
+        return view('pages.transaction.outcome.index');
     }
-
-
     /**
      * Show the form for creating a new resource.
      */
@@ -39,7 +35,7 @@ class OrderController extends Controller
      */
     public function store(Request $request)
     {
-        
+        //
     }
 
     /**

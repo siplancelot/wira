@@ -103,7 +103,7 @@
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
       <div class="modal-header">
-        <h1 class="modal-title fs-5" id="exampleModalLabel">Ringkasan Transaksi</h1>
+        <h1 class="modal-title-2 fs-5" id="exampleModalLabel">Ringkasan Transaksi</h1>
       </div>
       <div class="modal-body">
         <div class="item-checkout-list">
@@ -111,7 +111,8 @@
         </div>
         <div class="final-price" style="width: 100%; display: flex; justify-content: space-between;">
           <p class="title" style="font-size: 20px">Total Harga</p>
-          <p class="price" style="font-size: 20px; font-weight: bold;">Rp 20.000,00</p>
+          <input type="hidden" class="hdnFinalPrice" value="">
+          <p class="price" style="font-size: 20px; font-weight: bold;"></p>
         </div>
       </div>
       <div class="modal-footer">
@@ -153,6 +154,7 @@
       <div style="width: 250px; display: flex; justify-content: space-between;">
         <p class="name"></p>
         <p class="total"></p>
+        <input type="hidden" class="hdnPriceItem" val="">
       </div>
       <p class="detail"></p>
       <p class="note"></p>
@@ -312,6 +314,7 @@
       divCartItem.find(".name").html(productName);
       divCartItem.find(".total").html("x" + total);
       divCartItem.find(".detail").html(variantName);
+      divCartItem.find(".hdnPriceItem").val(totalPrice);
       if(notes == ""){
         divCartItem.find(".note").html("-");
       } else {
@@ -341,6 +344,7 @@
       $(".cart-item-list .cart-item").each(function () {
         var title = $(this).find('.name').html();
         var price = $(this).find(".price").html();
+        var priceInt = parseInt($(this).find(".hdnPriceItem").val());
         var total = $(this).find(".total").html();
         var note = $(this).find(".note").html();
 
@@ -355,31 +359,21 @@
 
         $(".item-checkout-list").append(divCheckoutItem);
 
-        finalPrice += total;
+        finalPrice += priceInt;
       });
-      alert(finalPrice);
+      $(".final-price").find(".hdnFinalPrice").val(finalPrice);
+      $(".final-price").find(".price").html(new Intl
+                                      .NumberFormat('id-ID', {
+                                          style: 'currency',
+                                          currency: 'IDR'
+                                      }).format(finalPrice).replace("IDR", ""));
+
     });
 
     $("#btnCheckout").click(function(){
       alert("masuk");
 
-      $.ajax({
-          url:"{{route('inputorderhd')}}",
-          type: "POST",
-          data: {
-            'title': "tes",
-            'name': "tess",
-            'total_product': 2,
-            'total_price': 323424,
-            'payment_method': "cash"
-          },
-          success: function(data){
-            console.log("success");
-          },
-          error: function(xhr, status, error) {
-                console.error('Error: ' + error);
-            }
-        })
+  
     });
 
   });
@@ -392,7 +386,7 @@
 
   $(document).on("click", ".card-product", function() {
     var title = $(this).find(".title").html();
-
+    var pricePrimary = $(this).find(".hdnPrice").val();
     var id = $(this).attr("id");
 
     $.ajax({

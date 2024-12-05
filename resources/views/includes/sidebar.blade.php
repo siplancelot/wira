@@ -72,18 +72,18 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{ route('orderview') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Pemesanan</p>
               </a>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{ route('incomeview') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Pemasukan</p>
               </a>
             </li><li class="nav-item">
-              <a href="" class="nav-link">
+              <a href="{{ route('outcomeview') }}" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Pengeluaran</p>
               </a>
@@ -95,7 +95,7 @@
         </li>
         
         <li class="nav-item">
-          <a href="#" class="nav-link">
+          <a href="{{route('admin.report.index')}}" class="nav-link">
             <i class="fas fa-folder nav-icon"></i>
             <p>Laporan</p>
           </a>

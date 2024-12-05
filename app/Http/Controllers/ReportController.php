@@ -15,6 +15,10 @@ class ReportController extends Controller
         return view("pages.report.report");
     }
 
+    public function reportIncome(){
+        return view("pages.report.income");
+    }
+
     /**
      * Show the form for creating a new resource.
      */

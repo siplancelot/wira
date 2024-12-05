@@ -21,7 +21,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-4">
-                <a href="#">
+                <a href="{{route('reportincome')}}">
                     <div class="card">
                         <div class="card-body">
                             <div style="display: flex; align-items: center;">

@@ -9,7 +9,8 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ConsoleController;
-
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\TransactionController;
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/product', [ProductController::class, 'index'])->name('product');
 // Route::get('/product/detail', [ProductController::class, 'detail'])->name('product-detail');
@@ -26,6 +27,12 @@ Route::get('/getvariant', [ConsoleController::class, 'getVariant'])->name('getva
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
+
+
+Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
+Route::get("admin/income", [TransactionController::class, 'viewIncome'])->name("incomeview");
+Route::get("admin/outcome", [TransactionController::class, 'viewOutcome'])->name("outcomeview");
+Route::get("admin/report/income", [ReportController::class, 'reportIncome'])->name("reportincome");
 
 Route::get('/', function () {
     return view('pages.home');
