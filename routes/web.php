@@ -8,6 +8,7 @@ use App\Http\Controllers\LoginController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\StockController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\ConsoleController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/product', [ProductController::class, 'index'])->name('product');
@@ -19,8 +20,12 @@ use App\Http\Controllers\ReportController;
 // Route::get('/report', [ReportController::class, 'index'])->name('report');
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::get('/console', [ConsoleController::class, 'index'])->name('console');
+Route::get('/search', [ConsoleController::class, 'filterCategory'])->name('search');
+Route::get('/getvariant', [ConsoleController::class, 'getVariant'])->name('getvariant');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
+
 
 Route::get('/', function () {
     return view('pages.home');
