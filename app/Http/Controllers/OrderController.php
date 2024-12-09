@@ -9,6 +9,7 @@ use App\Models\OrderDt;
 use Illuminate\Http\Request;
 
 use App\Models\OrderHd;
+use App\Models\Product;
 use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
@@ -30,7 +31,7 @@ class OrderController extends Controller
 
         return response()->json([
             'id' => $orderHD->id
-        ]);
+        ], 201);
     }
 
     public function inputOrderDt(StoreInputOrderDTRequest $request){
@@ -40,7 +41,7 @@ class OrderController extends Controller
             return OrderDt::create($validated);
         });
 
-        return response()->json($orderDT);
+        return response()->json($orderDT, 201);
     }
 
     /**

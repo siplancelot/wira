@@ -30,6 +30,7 @@ Route::post('/logout', [LoginController::class, 'logout']);
 Route::post('/inputorderhd', [OrderController::class, 'inputOrderHd'])->name('orderHD');
 Route::post('/inputorderdt', [OrderController::class, 'inputOrderDt'])->name('orderDT');
 
+
 Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
 Route::get("admin/income", [TransactionController::class, 'viewIncome'])->name("incomeview");
 Route::get("admin/outcome", [TransactionController::class, 'viewOutcome'])->name("outcomeview");
