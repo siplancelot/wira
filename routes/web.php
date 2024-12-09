@@ -39,6 +39,7 @@ Route::get('/', function () {
     return view('pages.home');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
+
 Route::middleware('auth')->group(function () {
     Route::prefix('admin')->name('admin.')->group(function () {
         Route::middleware('permission:manage product')->group(function () {
