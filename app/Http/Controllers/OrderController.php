@@ -19,7 +19,24 @@ class OrderController extends Controller
      */
     public function index()
     {
-        return view("pages.transaction.order.index");
+
+        $orderhd = OrderHd::all();
+
+        return view("pages.transaction.order.index", compact('orderhd'));
+    }
+
+    public function detailOrder(Request $request){
+        $request->validate([
+            'query' => 'required|integer', // Assuming query is an integer
+        ]);
+    
+        $query = $request->get('query');
+    
+        // Fetch orders where order_hd_id matches the query
+        $orderdt = OrderDt::with('product')->where('order_hd_id', $query)->get();
+    
+        // Return the orders as JSON
+        return response()->json($orderdt);
     }
 
     public function inputOrderHd(StoreInputOrderHDRequest $request){

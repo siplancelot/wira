@@ -134,7 +134,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" id="btnModalClose" class="btn btn-secondary"
+                <button type="button" id="btnModalClose2" class="btn btn-secondary"
                     data-bs-dismiss="modal">Tutup</button>
                 <button type="button" class="btn btn-primary" id="btnCheckout">Order Pesanan</button>
             </div>
@@ -211,7 +211,6 @@
 
 
 <script type="text/javascript">
-    console.log($(".btn-delete"))
 
     $(document).ready(function () {
         $(".category-item").click(function () {
@@ -424,9 +423,6 @@
 
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
 
-            
-
-            
 
             $.ajax({
                 url: "{{route('orderHD')}}",
@@ -442,12 +438,18 @@
                 },
                 success: function (data) {
 
-                    var orderHDID = data.id;
 
+                    var orderHDID = data.id;
+                    alert("masuk");
                     modalCheckout.find(".item-checkout-list .item-checkout").each(function () {
                         var total = parseInt($(this).find(".total").html().replace('x', ''));
                         var productID = $(this).find(".hdnProductID").val();
                         var price = $(this).find(".hdnPriceItem").val();
+
+                        alert(orderHDID);
+                        alert(productID);
+                        alert(total);
+                        alert(price);
 
                         $.ajax({
                             url: "{{route('orderDT')}}",
@@ -468,11 +470,20 @@
                         })
                         
                     });
+
+                    $(".item-checkout-list").empty();
+                    $(".cart-item-list").empty();
                 },
                 error: function (data) {
                     console.log("gagal");
                 }
             });
+
+            alert("Pesanan berhasil dibuat");
+
+            $("#btnModalClose2").click();
+
+            $(".bg-dark").click();
 
         });
 

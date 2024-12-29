@@ -14,29 +14,29 @@ class OrderDt extends Model
     protected $table = 'order_dt';
 
     protected $fillable = [
-        'order_hd_id',
-        'product_id',
+        'order_hd_id', // Foreign key to OrderHd
+        'product_id',  // Foreign key to Product
         'total',
-        'price'
+        'price',
     ];
 
     /**
-     * Get all of the orderHD for the OrderDt
+     * Get the order header for the OrderDt.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function orderHD(): HasMany
+    public function orderHD(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(OrderHd::class);
+        return $this->belongsTo(OrderHd::class, 'order_hd_id');
     }
 
     /**
-     * Get all of the products for the OrderDt
+     * Get the product for the OrderDt.
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function products(): HasMany
+    public function product(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->hasMany(Product::class);
+        return $this->belongsTo(Product::class, 'product_id');
     }
 }

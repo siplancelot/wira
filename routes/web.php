@@ -35,6 +35,7 @@ Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
 Route::get("admin/income", [TransactionController::class, 'viewIncome'])->name("incomeview");
 Route::get("admin/outcome", [TransactionController::class, 'viewOutcome'])->name("outcomeview");
 Route::get("admin/report/income", [ReportController::class, 'reportIncome'])->name("reportincome");
+Route::get("admin/order/detail", [OrderController::class, 'detailOrder'])->name("orderdetail");
 
 Route::get('/', function () {
     return view('pages.home');

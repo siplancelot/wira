@@ -121,6 +121,7 @@
         $("#btnUpdateStock").click(function () {
             $("#dataStock1").hide();
             $("#dataStock2").fadeIn();
+            $(".txtStock").val("");
         });
 
         $("#btnSaveStock").click(function () {
