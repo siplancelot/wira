@@ -11,6 +11,8 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
+use App\Http\Controllers\TransactionStock;
+
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/product', [ProductController::class, 'index'])->name('product');
 // Route::get('/product/detail', [ProductController::class, 'detail'])->name('product-detail');
@@ -29,6 +31,9 @@ Route::post('/logout', [LoginController::class, 'logout']);
 
 Route::post('/inputorderhd', [OrderController::class, 'inputOrderHd'])->name('orderHD');
 Route::post('/inputorderdt', [OrderController::class, 'inputOrderDt'])->name('orderDT');
+
+Route::post('/inputtransactionstockhd', [TransactionStock::class, 'inputTransactionStockHd'])->name('transactionHD');
+Route::post('/inputtransactionstockdt', [TransactionStock::class, 'inputTransactionStockDt'])->name('transactionDT');
 
 
 Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
