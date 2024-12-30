@@ -28,4 +28,19 @@ class StoreIncomeRequest extends FormRequest
             'no_reference' => 'nullable|integer',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'income_category_id.required' => 'Kategori pemasukan wajib diisi',
+            'income_category_id.integer' => 'Kategori pemasukan wajib diisi',
+            'total.required' => 'Total pemasukan wajib diisi',
+            'description.required' => 'Deskripsi pemasukan wajib diisi',
+        ];
+    }
 }
