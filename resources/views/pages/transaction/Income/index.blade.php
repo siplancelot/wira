@@ -34,6 +34,7 @@
                           <thead class="text-center">
                               <tr>
                                   <th style="width: 5%">No</th>
+                                  <th>Tanggal</th>
                                   <th>Tipe Pemasukan</th>
                                   <th>Jumlah</th>
                                   <th>Action</th>
@@ -43,6 +44,7 @@
                               @foreach ($incomes as $income)
                                   <tr>
                                     <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $income->created_at->locale('id')->isoFormat('D MMM, Y') }}</td>
                                     <td>{{ $income->incomeCategory->name }}</td>
                                     <td>Rp {{ number_format($income->total, 0, ',', '.') }}</td>
                                     <td>

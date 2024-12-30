@@ -34,6 +34,7 @@
                           <thead class="text-center">
                               <tr>
                                   <th style="width: 5%">No</th>
+                                  <th>Tanggal</th>
                                   <th>Tipe Pemasukan</th>
                                   <th>Jumlah</th>
                                   <th>Action</th>
@@ -43,8 +44,9 @@
                               @foreach ($outcomes as $outcome)
                                     <tr>
                                         <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $outcome->created_at->locale('id')->isoFormat('D MMM, Y') }}</td>
                                         <td>{{ $outcome->outcomeCategory->name }}</td>
-                                        <td>Rp. {{ number_format($outcome->total, 0, ',', '.') }}</td>
+                                        <td>Rp {{ number_format($outcome->total, 0, ',', '.') }}</td>
                                         <td>
                                             <a href="#" class="btn btn-primary">
                                             <i class="fas fa-eye"></i>
