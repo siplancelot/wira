@@ -40,7 +40,7 @@
                               </tr>
                           </thead>
                           <tbody>
-                              @forelse ($incomes as $income)
+                              @foreach ($incomes as $income)
                                   <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $income->incomeCategory->name }}</td>
@@ -51,11 +51,7 @@
                                         </a>
                                     </td>
                                 </tr>
-                              @empty
-                                <tr>
-                                    <td colspan="4">Tidak ada data</td>
-                                </tr>
-                              @endforelse
+                              @endforeach
                           </tbody>
                       </table>
                   </div>
