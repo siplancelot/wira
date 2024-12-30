@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('income_category_id')->constrained()->onDelete('cascade');
+            $table->string('total');
+            $table->text('description');
+            $table->integer('no_reference')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('transaction_stock_hds', function (Blueprint $table) {
+        Schema::create('transaction_stock_hd', function (Blueprint $table) {
             $table->id();
             $table->integer('total');
             $table->integer('price');

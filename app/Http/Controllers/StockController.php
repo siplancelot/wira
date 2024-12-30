@@ -61,7 +61,7 @@ class StockController extends Controller
      */
     public function update(UpdateStockRequest $request, Stock $stock)
     {
-        $stock = DB::transaction(function() use ($request, $stock) {
+        $stock = DB::transaction(function() use ($request, $stock) {     
             $validated = $request->validated();
 
             return $stock->update($validated);

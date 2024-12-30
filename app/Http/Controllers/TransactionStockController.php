@@ -9,13 +9,13 @@ use App\Models\Transaction_stock_hd;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class TransactionStock extends Controller
+class TransactionStockController extends Controller
 {
     public function inputTransactionStockHd(StoreTransactionStockHDRequest $request){
         $transactionStockHD = DB::transaction(function() use ($request) {
             $validated = $request->validated();
 
-            return Transaction_stock_hd::create($validated);
+            Transaction_stock_hd::create($validated);
         });
 
         return response()->json($transactionStockHD, 201);
@@ -25,7 +25,7 @@ class TransactionStock extends Controller
         $transactionStockDT = DB::transaction(function() use ($request) {
             $validated = $request->validated();
 
-            return Transaction_stock_dt::create($validated);
+            Transaction_stock_dt::create($validated);
         });
 
         return response()->json($transactionStockDT, 201);

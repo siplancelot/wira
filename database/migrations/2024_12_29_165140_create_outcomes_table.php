@@ -13,6 +13,11 @@ return new class extends Migration
     {
         Schema::create('outcomes', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('outcome_category_id')->constrained()->onDelete('cascade');
+            $table->integer('total');
+            $table->text('description');
+            $table->integer('no_reference')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }
