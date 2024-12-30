@@ -28,4 +28,19 @@ class StoreOutcomeRequest extends FormRequest
             'no_reference' => 'nullable|integer',
         ];
     }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'outcome.required' => 'Kategori pengeluaran wajib diisi',
+            'outcome.integer' => 'Kategori pengeluaran wajib diisi',
+            'total.required' => 'Total pengeluaran wajib diisi',
+            'description.required' => 'Deskripsi pengeluaran wajib diisi',
+        ];
+    }
 }

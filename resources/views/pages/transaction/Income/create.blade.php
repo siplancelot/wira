@@ -46,7 +46,7 @@
                               <div class="form-group">
                                 <label for="income_category_id">Kategori Pemasukan</label>
                                 <select name="income_category_id" id="income_category_id" class="form-control">
-                                  <option value="0">Pilih Kategori</option>
+                                  <option>Pilih Kategori</option>
                                   @foreach ($incomeCategories as $category)
                                       <option value="{{ $category->id }}">{{ $category->name }}</option>
                                   @endforeach
