@@ -11,7 +11,7 @@ use App\Http\Controllers\ReportController;
 use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
-use App\Http\Controllers\TransactionStock;
+use App\Http\Controllers\TransactionStockController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/product', [ProductController::class, 'index'])->name('product');
@@ -29,12 +29,17 @@ Route::get('/getvariant', [ConsoleController::class, 'getVariant'])->name('getva
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout']);
 
-Route::post('/inputorderhd', [OrderController::class, 'inputOrderHd'])->name('orderHD');
-Route::post('/inputorderdt', [OrderController::class, 'inputOrderDt'])->name('orderDT');
+Route::post('admin/inputorderhd', [OrderController::class, 'inputOrderHd'])->name('orderHD');
+Route::post('admin/inputorderdt', [OrderController::class, 'inputOrderDt'])->name('orderDT');
 
-Route::post('/inputtransactionstockhd', [TransactionStock::class, 'inputTransactionStockHd'])->name('transactionHD');
-Route::post('/inputtransactionstockdt', [TransactionStock::class, 'inputTransactionStockDt'])->name('transactionDT');
+Route::post('admin/inputtransactionstockhd', [TransactionStockController::class, 'inputTransactionStockHd'])->name('transactionHD');
+Route::post('admin/inputtransactionstockdt', [TransactionStockController::class, 'inputTransactionStockDt'])->name('transactionDT');
 
+Route::get('admin/inputincome', [TransactionController::class, 'createIncome'])->name('incomeCreateView');
+Route::get('admin/inputoutcome', [TransactionController::class, 'createOutcome'])->name('outcomeCreateView');
+
+Route::post('admin/inputincome', [TransactionController::class, 'storeIncome'])->name('income');
+Route::post('admin/inputoutcome', [TransactionController::class, 'storeOutcome'])->name('outcome');
 
 Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
 Route::get("admin/income", [TransactionController::class, 'viewIncome'])->name("incomeview");

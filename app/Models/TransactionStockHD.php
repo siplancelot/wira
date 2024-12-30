@@ -6,19 +6,19 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Outcome extends Model
+class TransactionStockHD extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'transaction_stock_hd';
+
     protected $fillable = [
-        'outcome_category_id',
         'total',
-        'description',
-        'no_reference'
+        'price',
     ];
 
-    public function outcomeCategory()
+    public function transaction_stock_dt()
     {
-        return $this->belongsTo(OutcomeCategory::class, 'outcome_category_id', 'id');
+        return $this->belongsTo(Transaction_stock_dt::class, 'transaction_stock_hd_id', 'id');
     }
 }

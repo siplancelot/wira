@@ -6,19 +6,18 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Outcome extends Model
+class IncomeCategory extends Model
 {
     use HasFactory, SoftDeletes;
 
+    protected $table = 'income_categories';
+
     protected $fillable = [
-        'outcome_category_id',
-        'total',
-        'description',
-        'no_reference'
+        'name'
     ];
 
-    public function outcomeCategory()
+    public function incomes()
     {
-        return $this->belongsTo(OutcomeCategory::class, 'outcome_category_id', 'id');
+        return $this->hasMany(Income::class, 'income_category_id', 'id');
     }
 }

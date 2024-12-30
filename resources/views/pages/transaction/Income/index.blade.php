@@ -27,7 +27,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                      <a href="" class="btn btn-primary">
+                      <a href="{{ route('incomeCreateView') }}" class="btn btn-primary">
                           Tambah Data
                       </a>
                       <table class="myTable table table-bordered table-hover">
@@ -40,16 +40,22 @@
                               </tr>
                           </thead>
                           <tbody>
-                              <tr>
-                                  <td>1</td>
-                                  <td>Penjualan Produk</td>
-                                  <td>Rp 20.000,00</td>
-                                  <td>
-                                    <a href="#" class="btn btn-primary">
-                                      <i class="fas fa-eye"></i>
-                                    </a>
-                                  </td>
-                              </tr>
+                              @forelse ($incomes as $income)
+                                  <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $income->incomeCategory->name }}</td>
+                                    <td>Rp. {{ number_format($income->total, 0, ',', '.') }}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary">
+                                        <i class="fas fa-eye"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+                              @empty
+                                <tr>
+                                    <td colspan="4">Tidak ada data</td>
+                                </tr>
+                              @endforelse
                           </tbody>
                       </table>
                   </div>
