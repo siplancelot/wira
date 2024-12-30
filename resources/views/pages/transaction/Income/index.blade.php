@@ -44,7 +44,7 @@
                                   <tr>
                                     <td>{{ $loop->iteration }}</td>
                                     <td>{{ $income->incomeCategory->name }}</td>
-                                    <td>Rp. {{ number_format($income->total, 0, ',', '.') }}</td>
+                                    <td>Rp {{ number_format($income->total, 0, ',', '.') }}</td>
                                     <td>
                                         <a href="#" class="btn btn-primary">
                                         <i class="fas fa-eye"></i>

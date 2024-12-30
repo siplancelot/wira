@@ -211,7 +211,6 @@
 
 
 <script type="text/javascript">
-
     $(document).ready(function () {
         $(".category-item").click(function () {
             $(".category-item").removeClass("active");
@@ -384,7 +383,7 @@
 
                 var divCheckoutItem = $($('#tmpItemCheckout').html());
 
-                divCheckoutItem.find(".title").html(title + " ( " + detail +" )");
+                divCheckoutItem.find(".title").html(title + " ( " + detail + " )");
                 divCheckoutItem.find(".price").html(price);
                 divCheckoutItem.find(".total").html(total);
                 divCheckoutItem.find(".note").html(note);
@@ -412,6 +411,8 @@
 
             var totalProduct = 0;
 
+            var orderHDID = 0;
+
             modalCheckout.find(".item-checkout-list .item-checkout").each(function () {
                 var total = parseInt($(this).find(".total").html().replace('x', ''));
                 totalProduct += total;
@@ -438,38 +439,52 @@
                 },
                 success: function (data) {
 
+                    orderHDID = data.id;
 
-                    var orderHDID = data.id;
-                    alert("masuk");
-                    modalCheckout.find(".item-checkout-list .item-checkout").each(function () {
-                        var total = parseInt($(this).find(".total").html().replace('x', ''));
-                        var productID = $(this).find(".hdnProductID").val();
-                        var price = $(this).find(".hdnPriceItem").val();
+                    $.ajax({
+                        url: "{{route('income')}}",
+                        type: "POST",
+                        data: {
+                            '_token': csrfToken,
+                            'income_category_id': 1,
+                            'total': totalPrice,
+                            'description': "--",
+                            'no_reference': orderHDID
+                        },
+                        success: function (data) {
+                            console.log('success');
+                        },
+                        error: function (data) {
+                            console.log("gagal");
+                        }
+                    })
 
-                        alert(orderHDID);
-                        alert(productID);
-                        alert(total);
-                        alert(price);
+                    modalCheckout.find(".item-checkout-list .item-checkout").each(
+                        function () {
+                            var total = parseInt($(this).find(".total").html().replace(
+                                'x', ''));
+                            var productID = $(this).find(".hdnProductID").val();
+                            var price = $(this).find(".hdnPriceItem").val();
 
-                        $.ajax({
-                            url: "{{route('orderDT')}}",
-                            type: "POST",
-                            data: {
-                                '_token': csrfToken,
-                                'order_hd_id': orderHDID,
-                                'product_id': productID,
-                                'total': total,
-                                'price': price
-                            },
-                            success: function(data){
-                                console.log('success');
-                            },
-                            error: function(data){
-                                console.log("gagal");
-                            }
-                        })
-                        
-                    });
+                            $.ajax({
+                                url: "{{route('orderDT')}}",
+                                type: "POST",
+                                data: {
+                                    '_token': csrfToken,
+                                    'order_hd_id': orderHDID,
+                                    'product_id': productID,
+                                    'total': total,
+                                    'price': price
+                                },
+                                success: function (data) {
+                                    console.log('success');
+                                },
+                                error: function (data) {
+                                    console.log("gagal");
+                                }
+                            })
+
+                        });
 
                     $(".item-checkout-list").empty();
                     $(".cart-item-list").empty();
@@ -478,6 +493,8 @@
                     console.log("gagal");
                 }
             });
+
+
 
             alert("Pesanan berhasil dibuat");
 
