@@ -38,7 +38,7 @@
                                 </ul>
                             </div>
                         @endif
-                        
+
                         <form action="{{ route('outcome') }}" method="POST">
                           @csrf
                           <div class="row">
@@ -46,7 +46,7 @@
                               <div class="form-group">
                                 <label for="outcome_category_id">Kategori Pengeluaran</label>
                                 <select name="outcome_category_id" id="outcome_category_id" class="form-control">
-                                  <option value="0">Pilih Kategori</option>
+                                  <option>Pilih Kategori</option>
                                   @foreach ($outcomeCategories as $category)
                                       <option value="{{ $category->id }}">{{ $category->name }}</option>
                                   @endforeach
