@@ -23,12 +23,12 @@ class TransactionController extends Controller
     }
 
     public function viewIncome(){
-        $incomes = Income::with('incomeCategory')->get();
+        $incomes = Income::with('incomeCategory')->orderByDesc('created_at')->get();
         return view('pages.transaction.income.index', compact('incomes'));
     }
 
     public function viewOutcome(){
-        $outcomes = Outcome::with('outcomeCategory')->get();
+        $outcomes = Outcome::with('outcomeCategory')->orderByDesc('created_at')->get();
         return view('pages.transaction.outcome.index', compact('outcomes'));
     }
 
