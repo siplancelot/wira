@@ -51,26 +51,27 @@
   const ctx = document.getElementById('myChart').getContext('2d');
   const ctx2 = document.getElementById('myChart2').getContext('2d');
 
+  const categories = @json($totalDataPie->pluck('category_name'));
+  const productCounts = @json($totalDataPie->pluck('total_products'));
+  const totalDataBar = @json($totalDataBar);
+
+  // Prepare the labels (dates)
+  const labels = totalDataBar.labels;
+
+  // Prepare the datasets (each category's data)
+  const datasets = totalDataBar.datasets.map((dataset) => ({
+      label: dataset.label,
+      data: dataset.data,
+      backgroundColor: dataset.backgroundColor,
+      borderColor: dataset.borderColor,
+      borderWidth: 1
+  }));
+
   const myChart = new Chart(ctx, {
     type: 'bar', // Bar chart
     data: {
-      labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // X-axis labels
-      datasets: [
-        {
-          label: 'Penjualan', // First set of bars
-          data: [12, 19, 3, 5, 2, 3],
-          backgroundColor: 'rgba(255, 99, 132, 0.2)', // Bars' fill color
-          borderColor: 'rgba(255, 99, 132, 1)', // Bars' border color
-          borderWidth: 1
-        },
-        {
-          label: 'Lain-lain', // Second set of bars
-          data: [8, 11, 7, 6, 8, 10],
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
-          borderWidth: 1
-        }
-      ]
+      labels: labels,
+      datasets: datasets
     },
     options: {
       responsive: true,
@@ -91,11 +92,11 @@
   const myChart2 = new Chart(ctx2, {
     type: 'pie', // Bar chart
     data: {
-      labels: ['Makanan', 'Minuman', 'Lain-lain'], // X-axis labels
+      labels: categories, // X-axis labels
       datasets: [
         {
           label: 'Produk', // First set of bars
-          data: [100, 40, 20],
+          data: productCounts,
           backgroundColor: [
           'rgba(255, 99, 132, 0.8)',  // Colors for the slices
           'rgba(54, 162, 235, 0.8)',
