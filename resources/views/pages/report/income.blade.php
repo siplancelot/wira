@@ -204,9 +204,47 @@
 
 @section('scripts')
 <script>
+  const ctx = document.getElementById('myChart').getContext('2d');
+  const ctx2 = document.getElementById('myChart2').getContext('2d');
+
+  const categories = @json($totalDataPie->pluck('category_name'));
+  const productCounts = @json($totalDataPie->pluck('total_products'));
+  const totalDataBar = @json($totalDataBar);
+
+  // Prepare the labels (dates)
+  const labels = totalDataBar.labels;
+
+  // Prepare the datasets (each category's data)
+  const datasets = totalDataBar.datasets.map((dataset) => ({
+      label: dataset.label,
+      data: dataset.data,
+      backgroundColor: dataset.backgroundColor,
+      borderColor: dataset.borderColor,
+      borderWidth: 1
+  }));
     const ctx = document.getElementById('myChart').getContext('2d');
     const ctx2 = document.getElementById('myChart2').getContext('2d');
 
+  const myChart = new Chart(ctx, {
+    type: 'bar', // Bar chart
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top' // Place legend above the chart
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true // Ensure y-axis starts at 0
+        }
+      }
+    }
+  });
     const myChart = new Chart(ctx, {
         type: 'bar', // Bar chart
         data: {
@@ -243,6 +281,44 @@
     });
 
 
+  const myChart2 = new Chart(ctx2, {
+    type: 'pie', // Bar chart
+    data: {
+      labels: categories, // X-axis labels
+      datasets: [
+        {
+          label: 'Produk', // First set of bars
+          data: productCounts,
+          backgroundColor: [
+          'rgba(255, 99, 132, 0.8)',  // Colors for the slices
+          'rgba(54, 162, 235, 0.8)',
+          'rgba(255, 206, 86, 0.8)'
+          
+        ],
+        borderColor: [
+          'rgba(255, 255, 255, 1)', // Border color for the slices
+          'rgba(255, 255, 255, 1)',
+          'rgba(255, 255, 255, 1)'
+        ],
+          borderWidth: 1
+        },
+        
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top' // Place legend above the chart
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true // Ensure y-axis starts at 0
+        }
+      }
+    }
+  });
     const myChart2 = new Chart(ctx2, {
         type: 'pie', // Bar chart
         data: {
