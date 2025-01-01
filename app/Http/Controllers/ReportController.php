@@ -7,6 +7,8 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function Laravel\Prompts\select;
+
 class ReportController extends Controller
 {
     /**
@@ -60,7 +62,21 @@ class ReportController extends Controller
             ])->values()->toArray()
         ];
 
-        return view("pages.report.income", compact('totalDataPie', 'totalDataBar'));
+        $totalOrder = DB::table('order_hd')->count();
+
+        $totalSales = DB::table('order_hd')->select('total_product')->sum('total_product');
+
+        $totalIncomes = DB::table('incomes')->select('total')->sum('total');
+
+        $incomeHistories = DB::table('order_hd')->select('created_at', 'total_product', 'total_price')->get();
+
+        $otherIncomes = DB::table('incomes')
+            ->join('income_categories', 'incomes.income_category_id', '=', 'income_categories.id')
+            ->select('incomes.created_at', 'incomes.total', 'income_categories.name')
+            ->whereNot('income_categories.name', 'Penjualan Produk')
+            ->get();
+
+        return view("pages.report.income", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalSales', 'totalIncomes', 'incomeHistories', 'otherIncomes'));
     }
 
     public function getCategoryColor($category) {

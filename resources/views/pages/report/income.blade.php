@@ -42,7 +42,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{ $totalOrder }}</h3>
     
                 <p>Pesanan</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>300</h3>
+                <h3>{{ $totalSales }}</h3>
                 <p>Stok Terjual</p>
               </div>
               <div class="icon">
@@ -71,7 +71,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>Rp 200.000,00</h3>
+                <h3>Rp {{ number_format($totalIncomes, 2, '.', ',') }}</h3>
                 <p>Pemasukan</p>
               </div>
               <div class="icon">
@@ -136,7 +136,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
+                              @foreach ($incomeHistories as $item)
+                                <tr>
+                                  <td>{{ $loop->iteration }}</td>
+                                  <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
+                                  <td>{{ $item->total_product }}</td>
+                                  <td>Rp. {{ number_format($item->total_price, 2, '.', ',') }}</td>
+                                  <td>
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                  </td>
+                                </tr>
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -161,7 +171,17 @@
                               </tr>
                           </thead>
                           <tbody>
-                             
+                              @foreach ($otherIncomes as $item)
+                                <tr>
+                                  <td>{{ $loop->iteration }}</td>
+                                  <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
+                                  <td>{{ $item->name }}</td>
+                                  <td>Rp. {{ number_format($item->total, 2, '.', ',') }}</td>
+                                  <td>
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                  </td>
+                                </tr>
+                              @endforeach
                           </tbody>
                       </table>
                   </div>
@@ -222,8 +242,6 @@
       borderColor: dataset.borderColor,
       borderWidth: 1
   }));
-    const ctx = document.getElementById('myChart').getContext('2d');
-    const ctx2 = document.getElementById('myChart2').getContext('2d');
 
   const myChart = new Chart(ctx, {
     type: 'bar', // Bar chart
@@ -245,41 +263,6 @@
       }
     }
   });
-    const myChart = new Chart(ctx, {
-        type: 'bar', // Bar chart
-        data: {
-            labels: ['Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'], // X-axis labels
-            datasets: [{
-                    label: 'Penjualan', // First set of bars
-                    data: [12, 19, 3, 5, 2, 3],
-                    backgroundColor: 'rgba(255, 99, 132, 0.2)', // Bars' fill color
-                    borderColor: 'rgba(255, 99, 132, 1)', // Bars' border color
-                    borderWidth: 1
-                },
-                {
-                    label: 'Lain-lain', // Second set of bars
-                    data: [8, 11, 7, 6, 8, 10],
-                    backgroundColor: 'rgba(54, 162, 235, 0.2)',
-                    borderColor: 'rgba(54, 162, 235, 1)',
-                    borderWidth: 1
-                }
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top' // Place legend above the chart
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true // Ensure y-axis starts at 0
-                }
-            }
-        }
-    });
-
 
   const myChart2 = new Chart(ctx2, {
     type: 'pie', // Bar chart
@@ -319,43 +302,6 @@
       }
     }
   });
-    const myChart2 = new Chart(ctx2, {
-        type: 'pie', // Bar chart
-        data: {
-            labels: ['Makanan', 'Minuman', 'Lain-lain'], // X-axis labels
-            datasets: [{
-                    label: 'Produk', // First set of bars
-                    data: [100, 40, 20],
-                    backgroundColor: [
-                        'rgba(255, 99, 132, 0.8)', // Colors for the slices
-                        'rgba(54, 162, 235, 0.8)',
-                        'rgba(255, 206, 86, 0.8)'
-
-                    ],
-                    borderColor: [
-                        'rgba(255, 255, 255, 1)', // Border color for the slices
-                        'rgba(255, 255, 255, 1)',
-                        'rgba(255, 255, 255, 1)'
-                    ],
-                    borderWidth: 1
-                },
-
-            ]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                legend: {
-                    position: 'top' // Place legend above the chart
-                }
-            },
-            scales: {
-                y: {
-                    beginAtZero: true // Ensure y-axis starts at 0
-                }
-            }
-        }
-    });
 
 </script>
 
