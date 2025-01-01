@@ -42,7 +42,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>150</h3>
+                <h3>{{ $totalOrder }}</h3>
     
                 <p>Pesanan</p>
               </div>
@@ -57,7 +57,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>300</h3>
+                <h3>{{ $totalSales }}</h3>
                 <p>Stok Terjual</p>
               </div>
               <div class="icon">
@@ -71,7 +71,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>Rp 200.000,00</h3>
+                <h3>Rp {{ number_format($totalIncomes, 2, '.', ',') }}</h3>
                 <p>Pemasukan</p>
               </div>
               <div class="icon">
@@ -136,7 +136,17 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
+                              @foreach ($incomeHistories as $item)
+                                <tr>
+                                  <td>{{ $loop->iteration }}</td>
+                                  <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
+                                  <td>{{ $item->total_product }}</td>
+                                  <td>Rp. {{ number_format($item->total_price, 2, '.', ',') }}</td>
+                                  <td>
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                  </td>
+                                </tr>
+                              @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -161,7 +171,17 @@
                               </tr>
                           </thead>
                           <tbody>
-                             
+                              @foreach ($otherIncomes as $item)
+                                <tr>
+                                  <td>{{ $loop->iteration }}</td>
+                                  <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
+                                  <td>{{ $item->name }}</td>
+                                  <td>Rp. {{ number_format($item->total, 2, '.', ',') }}</td>
+                                  <td>
+                                    <a href="#" class="btn btn-primary">Detail</a>
+                                  </td>
+                                </tr>
+                              @endforeach
                           </tbody>
                       </table>
                   </div>
@@ -244,7 +264,6 @@
     }
   });
 
-
   const myChart2 = new Chart(ctx2, {
     type: 'pie', // Bar chart
     data: {
@@ -283,7 +302,6 @@
       }
     }
   });
-   
 
 </script>
 
