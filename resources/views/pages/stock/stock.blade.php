@@ -152,7 +152,6 @@
                 }
             });
             alert("Berhasil di update");
-            $(".txtStock").val("");
             location.reload();
 
         });
