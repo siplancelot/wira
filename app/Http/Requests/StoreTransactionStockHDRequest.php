@@ -22,6 +22,7 @@ class StoreTransactionStockHDRequest extends FormRequest
     public function rules(): array
     {
         return [
+            'title' => 'required|string',
             'total' => 'required|integer',
             'price' => 'required|integer',
         ];

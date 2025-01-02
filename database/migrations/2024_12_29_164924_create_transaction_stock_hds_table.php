@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('transaction_stock_hd', function (Blueprint $table) {
             $table->id();
+            $table->string('title');
             $table->integer('total');
             $table->integer('price');
             $table->softDeletes();
