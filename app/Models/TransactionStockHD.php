@@ -13,12 +13,13 @@ class TransactionStockHD extends Model
     protected $table = 'transaction_stock_hd';
 
     protected $fillable = [
+        'title',
         'total',
         'price',
     ];
 
     public function transaction_stock_dt()
     {
-        return $this->belongsTo(Transaction_stock_dt::class, 'transaction_stock_hd_id', 'id');
+        return $this->belongsTo(TransactionStockDT::class, 'transaction_stock_hd_id', 'id');
     }
 }
