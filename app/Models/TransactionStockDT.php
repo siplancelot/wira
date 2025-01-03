@@ -21,7 +21,7 @@ class TransactionStockDT extends Model
 
     public function transaction_stock_hd()
     {
-        return $this->belongsTo(Transaction_stock_hd::class, 'transaction_stock_hd_id', 'id');
+        return $this->belongsTo(TransactionStockHD::class, 'transaction_stock_hd_id', 'id');
     }
 
     public function product()
