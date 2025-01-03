@@ -24,7 +24,7 @@
 
 </div>
 
-<div class="category-content">
+<!-- <div class="category-content">
     <div class="category-item shadow active" id="all">
         <p class="text-center title-category">Semua</p>
     </div>
@@ -34,7 +34,7 @@
     </div>
 
     @endforeach
-</div>
+</div> -->
 
 <div class="main-content container-fluid">
     <div class="menus-content">
