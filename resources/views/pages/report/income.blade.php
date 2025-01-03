@@ -84,7 +84,11 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3>Rp 150.000,00</h3>
+                @if ($totalProfit > 0)
+                    <h3>Rp {{ number_format($totalProfit, 2, '.', ',') }}</h3>
+                @else
+                    <h3>Rp 0</h3>
+                @endif
     
                 <p>Keuntungan</p>
               </div>
@@ -210,7 +214,17 @@
                             </tr>
                         </thead>
                         <tbody>
-                           
+                           @foreach ($revenueByProducts as $item)
+                              <tr>
+                                <td>{{ $loop->iteration }}</td>
+                                <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
+                                <td>{{ $item->product_name }}</td>
+                                <td>{{ $item->total }}</td>
+                                <td>Rp. {{ number_format($item->revenue, 2, '.', ',') }}</td>
+                                <td>Rp. {{ number_format($item->capital, 2, '.', ',') }}</td>
+                                <td>Rp. {{ number_format($item->profit, 2, '.', ',') }}</td>
+                              </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

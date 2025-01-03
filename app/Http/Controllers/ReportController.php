@@ -76,7 +76,17 @@ class ReportController extends Controller
             ->whereNot('income_categories.name', 'Penjualan Produk')
             ->get();
 
-        return view("pages.report.income", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalSales', 'totalIncomes', 'incomeHistories', 'otherIncomes'));
+        $revenueByProducts = DB::table('wira.vorder_dt')
+            ->selectRaw('created_at, product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit')
+            ->get();
+        
+        $profits = DB::table('wira.vorder_dt')
+            ->selectRaw('sell_price * total - buy_price * total AS profit')
+            ->get();
+
+        $totalProfit = $profits->sum('profit');
+
+        return view("pages.report.income", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalSales', 'totalIncomes', 'incomeHistories', 'otherIncomes', 'revenueByProducts', 'totalProfit'));
     }
 
     public function getCategoryColor($category) {
