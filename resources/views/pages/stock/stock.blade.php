@@ -130,8 +130,16 @@
                 var productID = $(this).find(".hdnProductId").val();
                 var stockID = $(this).find(".hdnStockId").val();
 
-                if (totalStock != 0) {
+                var stockInput = $(this).find(".txtStock").val();
+
+                if (stockInput != "") {
                     var csrfToken = $('meta[name="csrf-token"]').attr('content');
+                    
+                    // alert(stockID);
+                    // alert(productID);
+                    // alert(totalStock);
+
+                    
 
                     $.ajax({
                         url: "{{route('admin.stock.update', ':id')}}".replace(':id',
@@ -149,11 +157,12 @@
                             console.log("gagal");
                         }
                     });
+
+
                 }
             });
             alert("Berhasil di update");
             location.reload();
-
         });
 
 
