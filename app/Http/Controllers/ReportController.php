@@ -19,23 +19,60 @@ class ReportController extends Controller
         return view("pages.report.report");
     }
 
-    public function reportIncome(){
+    private function getDateRangeData(string $range): array
+    {
         Carbon::setLocale('id');
 
-        $sevenDaysAgo = Carbon::now()->subDays(7)->startOfDay();
-        $sevenDaysAgoBar = collect(range(6, 0, -1))
-            ->map(fn($day) => Carbon::now()->subDays($day)->locale('id')->isoFormat('LL'))
-            ->toArray();
-        $actualDates = collect(range(6, 0, -1))
+        switch ($range) {
+            case 'today':
+                $startDate = Carbon::today()->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $labels = [Carbon::now()->locale('id')->isoFormat('LL')];
+                break;
+            case 'yesterday':
+                $startDate = Carbon::yesterday()->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $labels = [Carbon::yesterday()->locale('id')->isoFormat('LL')];
+                break;
+            case '30days':
+                $startDate = Carbon::now()->subDays(30)->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $labels = collect(range(29, 0, -1))
+                    ->map(fn($day) => Carbon::now()->subDays($day)->locale('id')->isoFormat('LL'))
+                    ->toArray();
+                break;
+            case '7days':
+            default:
+                $startDate = Carbon::now()->subDays(7)->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $labels = collect(range(6, 0, -1))
+                    ->map(fn($day) => Carbon::now()->subDays($day)->locale('id')->isoFormat('LL'))
+                    ->toArray();
+                break;
+        }
+
+        $actualDates = collect(range(count($labels) - 1, 0, -1))
             ->map(fn($day) => Carbon::now()->subDays($day)->toDateString()) // 'Y-m-d'
             ->toArray();
+
+        return [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'labels' => $labels,
+            'actualDates' => $actualDates,
+        ];
+    }
+
+    public function reportIncome(Request $request){
+        $range = $request->input('range', '7days');
+        $dateData = $this->getDateRangeData($range);
 
         $totalDataPie = DB::table('wira.vorder_dt')
             ->select(
                 'category_name',
                 DB::raw('SUM(total) as total_products')
             )
-            ->where('created_at', '>=', $sevenDaysAgo)
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->groupBy('category_name')
             ->get();
 
@@ -45,15 +82,15 @@ class ReportController extends Controller
                 DB::raw('SUM(total) as total_products'),
                 DB::raw('DATE(created_at) as date')
             )
-            ->where('created_at', '>=', $sevenDaysAgo)
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->groupBy('income_category_name', 'date')
             ->get();
         
         $totalDataBar = [
-            'labels' => $sevenDaysAgoBar, // Keep day names for labels
+            'labels' => $dateData['labels'], // Keep day names for labels
             'datasets' => $dataBar->groupBy('income_category_name')->map(fn($items, $category) => [
                 'label' => $category,
-                'data' => collect($actualDates)->map(fn($date) =>
+                'data' => collect($dateData['actualDates'])->map(fn($date) =>
                     $items->where('date', $date)->sum('total_products') ?? 0
                 )->toArray(),
                 'backgroundColor' => $this->getCategoryColor($category), // Customize the color
@@ -62,26 +99,40 @@ class ReportController extends Controller
             ])->values()->toArray()
         ];
 
-        $totalOrder = DB::table('order_hd')->count();
+        $totalOrder = DB::table('order_hd')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->count();
 
-        $totalSales = DB::table('order_hd')->select('total_product')->sum('total_product');
+        $totalSales = DB::table('order_hd')
+            ->select('total_product')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->sum('total_product');
 
-        $totalIncomes = DB::table('incomes')->select('total')->sum('total');
+        $totalIncomes = DB::table('incomes')
+            ->select('total')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->sum('total');
 
-        $incomeHistories = DB::table('order_hd')->select('created_at', 'total_product', 'total_price')->get();
+        $incomeHistories = DB::table('order_hd')
+            ->select('created_at', 'total_product', 'total_price')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->get();
 
         $otherIncomes = DB::table('incomes')
             ->join('income_categories', 'incomes.income_category_id', '=', 'income_categories.id')
             ->select('incomes.created_at', 'incomes.total', 'income_categories.name')
+            ->whereBetween('incomes.created_at', [$dateData['startDate'], $dateData['endDate']])
             ->whereNot('income_categories.name', 'Penjualan Produk')
             ->get();
 
         $revenueByProducts = DB::table('wira.vorder_dt')
             ->selectRaw('created_at, product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->get();
         
         $profits = DB::table('wira.vorder_dt')
             ->selectRaw('sell_price * total - buy_price * total AS profit')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->get();
 
         $totalProfit = $profits->sum('profit');

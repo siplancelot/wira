@@ -27,12 +27,15 @@
                 <h3 class="card-title">Filter Waktu</h3>
               </div>
               <div class="card-body">
-                <select name="filter-date" class="form-control">
-                  <option value="">Hari Ini</option>
-                  <option value="">Kemarin</option>
-                  <option value="">7 Hari Terakhir</option>
-                  <option value="">30 Hari Terakhir</option>
-                </select>
+                <form action="{{ route('reportincome') }}" method="get">
+                  <select name="range" class="form-control" onchange="this.form.submit()">
+                    <option value="">Pilih filter waktu</option>
+                    <option value="today" {{ request('range') == 'today' ? 'selected' : '' }}>Hari Ini</option>
+                    <option value="yesterday" {{ request('range') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
+                    <option value="7days" {{ request('range') == '7days' ? 'selected' : '' }}>7 Hari Terakhir</option>
+                    <option value="30days" {{ request('range') == '30days' ? 'selected' : '' }}>30 Hari Terakhir</option>
+                  </select>
+                </form>
               </div>
             </div>
           </div>
