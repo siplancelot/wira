@@ -31,7 +31,7 @@ class ReportController extends Controller
                 break;
             case 'yesterday':
                 $startDate = Carbon::yesterday()->startOfDay();
-                $endDate = Carbon::now()->endOfDay();
+                $endDate = Carbon::yesterday()->endOfDay();
                 $labels = [Carbon::yesterday()->locale('id')->isoFormat('LL')];
                 break;
             case '30days':
@@ -51,9 +51,13 @@ class ReportController extends Controller
                 break;
         }
 
-        $actualDates = collect(range(count($labels) - 1, 0, -1))
-            ->map(fn($day) => Carbon::now()->subDays($day)->toDateString()) // 'Y-m-d'
-            ->toArray();
+        if ($range === 'yesterday') {
+            $actualDates = [Carbon::yesterday()->toDateString()];
+        } else {
+            $actualDates = collect(range(count($labels) - 1, 0, -1))
+                ->map(fn($day) => Carbon::now()->subDays($day)->toDateString())
+                ->toArray();
+        }
 
         return [
             'startDate' => $startDate,
