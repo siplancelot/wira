@@ -45,7 +45,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3>{{ $totalOrder }}</h3>
+                <h3>{{ $totalRestocks }}</h3>
     
                 <p>Pembelian Stok</p>
               </div>
@@ -60,7 +60,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3>{{ $totalSales }}</h3>
+                <h3>{{ $totalOrder }}</h3>
                 <p>Stok Terbeli</p>
               </div>
               <div class="icon">
@@ -74,7 +74,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>Rp {{ number_format($totalIncomes, 2, '.', ',') }}</h3>
+                <h3>Rp {{ $totalOutcomes > 0 ? number_format($totalOutcomes, 2, '.', ',') : '0' }}</h3>
                 <p>Pengeluaran</p>
               </div>
               <div class="icon">
@@ -143,12 +143,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                              @foreach ($incomeHistories as $item)
+                              @foreach ($outcomeHistories as $item)
                                 <tr>
                                   <td>{{ $loop->iteration }}</td>
                                   <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
-                                  <td>{{ $item->total_product }}</td>
-                                  <td>Rp. {{ number_format($item->total_price, 2, '.', ',') }}</td>
+                                  <td>{{ $item->total }}</td>
+                                  <td>Rp. {{ number_format($item->total, 2, '.', ',') }}</td>
                                   <td>
                                     <a href="#" class="btn btn-primary">Detail</a>
                                   </td>
@@ -172,13 +172,13 @@
                               <tr>
                                   <th style="width: 5%">No</th>
                                   <th>Tanggal</th>
-                                  <th>Tipe Pemasukan</th>
+                                  <th>Tipe Pengeluaran</th>
                                   <th>Jumlah</th>
                                   <th>Action</th>
                               </tr>
                           </thead>
                           <tbody>
-                              @foreach ($otherIncomes as $item)
+                              @foreach ($otherOutcomes as $item)
                                 <tr>
                                   <td>{{ $loop->iteration }}</td>
                                   <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
@@ -215,13 +215,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                           @foreach ($revenueByProducts as $item)
+                           @foreach ($outcomeByProducts as $item)
                               <tr>
                                 <td>{{ $loop->iteration }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                 <td>{{ $item->product_name }}</td>
                                 <td>{{ $item->total }}</td>
-                                <td>Rp. {{ number_format($item->revenue, 2, '.', ',') }}</td>
+                                <td>Rp. {{ number_format($item->price, 2, '.', ',') }}</td>
                               </tr>
                             @endforeach
                         </tbody>

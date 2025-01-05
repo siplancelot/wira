@@ -33,7 +33,7 @@
                 </a>
             </div>
             <div class="col-4">
-                <a href="#">
+                <a href="{{ route('reportoutcome') }}">
                     <div class="card">
                         <div class="card-body">
                             <div style="display: flex; align-items: center;">

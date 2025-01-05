@@ -7,8 +7,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use function Laravel\Prompts\select;
-
 class ReportController extends Controller
 {
     /**
@@ -148,7 +146,7 @@ class ReportController extends Controller
         $range = $request->input('range', '7days');
         $dateData = $this->getDateRangeData($range);
 
-        $totalDataPie = DB::table('wira.vorder_dt')
+        $totalDataPie = DB::table('wira.vtransaction_stock_dt')
             ->select(
                 'category_name',
                 DB::raw('SUM(total) as total_products')
@@ -157,19 +155,19 @@ class ReportController extends Controller
             ->groupBy('category_name')
             ->get();
 
-        $dataBar = DB::table('wira.vincomes')
+        $dataBar = DB::table('wira.voutcomes')
             ->select(
-                'income_category_name',
+                'outcome_category_name',
                 DB::raw('SUM(total) as total_products'),
                 DB::raw('DATE(created_at) as date')
             )
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
-            ->groupBy('income_category_name', 'date')
+            ->groupBy('outcome_category_name', 'date')
             ->get();
         
         $totalDataBar = [
             'labels' => $dateData['labels'], // Keep day names for labels
-            'datasets' => $dataBar->groupBy('income_category_name')->map(fn($items, $category) => [
+            'datasets' => $dataBar->groupBy('outcome_category_name')->map(fn($items, $category) => [
                 'label' => $category,
                 'data' => collect($dateData['actualDates'])->map(fn($date) =>
                     $items->where('date', $date)->sum('total_products') ?? 0
@@ -180,45 +178,38 @@ class ReportController extends Controller
             ])->values()->toArray()
         ];
 
-        $totalOrder = DB::table('order_hd')
+        $totalRestocks = DB::table('transaction_stock_hd')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->count();
 
-        $totalSales = DB::table('order_hd')
-            ->select('total_product')
-            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
-            ->sum('total_product');
-
-        $totalIncomes = DB::table('incomes')
+        $totalOrder = DB::table('transaction_stock_dt')
             ->select('total')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->sum('total');
 
-        $incomeHistories = DB::table('order_hd')
-            ->select('created_at', 'total_product', 'total_price')
+        $totalOutcomes = DB::table('outcomes')
+            ->select('total')
+            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->sum('total');
+
+        $outcomeHistories = DB::table('transaction_stock_hd')
+            ->select('created_at', 'total', 'total')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->get();
 
-        $otherIncomes = DB::table('incomes')
-            ->join('income_categories', 'incomes.income_category_id', '=', 'income_categories.id')
-            ->select('incomes.created_at', 'incomes.total', 'income_categories.name')
-            ->whereBetween('incomes.created_at', [$dateData['startDate'], $dateData['endDate']])
-            ->whereNot('income_categories.name', 'Penjualan Produk')
-            ->get();
-
-        $revenueByProducts = DB::table('wira.vorder_dt')
-            ->selectRaw('created_at, product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit')
-            ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+        $otherOutcomes = DB::table('outcomes')
+            ->join('outcome_categories', 'outcomes.outcome_category_id', '=', 'outcome_categories.id')
+            ->select('outcomes.created_at', 'outcomes.total', 'outcome_categories.name')
+            ->whereBetween('outcomes.created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->whereNot('outcome_categories.name', 'Pembelian Produk')
             ->get();
         
-        $profits = DB::table('wira.vorder_dt')
-            ->selectRaw('sell_price * total - buy_price * total AS profit')
+        $outcomeByProducts = DB::table('wira.vtransaction_stock_dt')
+            ->select('created_at', 'product_name', 'total', 'price')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->get();
 
-        $totalProfit = $profits->sum('profit');
-
-        return view("pages.report.outcome", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalSales', 'totalIncomes', 'incomeHistories', 'otherIncomes', 'revenueByProducts', 'totalProfit'));
+        return view("pages.report.outcome", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalRestocks', 'totalOutcomes', 'outcomeHistories', 'otherOutcomes', 'outcomeByProducts'));
     }
 
     public function getCategoryColor($category) {
