@@ -27,7 +27,7 @@
                 <h3 class="card-title">Filter Waktu</h3>
               </div>
               <div class="card-body">
-                <form action="{{ route('reportincome') }}" method="get">
+                <form action="{{ route('reportoutcome') }}" method="get">
                   <select name="range" class="form-control" onchange="this.form.submit()">
                     <option value="">Pilih filter waktu</option>
                     <option value="today" {{ request('range') == 'today' ? 'selected' : '' }}>Hari Ini</option>
