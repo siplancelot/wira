@@ -28,7 +28,7 @@
               </div>
               <div class="card-body">
                 <form action="{{ route('reportoutcome') }}" method="get">
-                  <select name="range" class="form-control" onchange="this.form.submit()">
+                  <select name="range" class="form-control" onchange="handleFilterChange(this)">
                     <option value="">Pilih filter waktu</option>
                     <option value="today" {{ request('range') == 'today' ? 'selected' : '' }}>Hari Ini</option>
                     <option value="yesterday" {{ request('range') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
@@ -148,7 +148,7 @@
                                   <td>{{ $loop->iteration }}</td>
                                   <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                   <td>{{ $item->total }}</td>
-                                  <td>Rp. {{ number_format($item->total, 2, '.', ',') }}</td>
+                                  <td>Rp. {{ number_format($item->price, 2, '.', ',') }}</td>
                                   <td>
                                     <a href="#" class="btn btn-primary">Detail</a>
                                   </td>
@@ -315,6 +315,18 @@
       }
     }
   });
+
+  function handleFilterChange(select) {
+      const selectedValue = select.value;
+
+      if (selectedValue === "") {
+          // Redirect to a specific page when "Pilih filter waktu" is selected
+          window.location.href = "{{ route('reportoutcome') }}"; // Replace 'specificPage' with the route name
+      } else {
+          // Submit the form for other options
+          select.form.submit();
+      }
+  }
 
 </script>
 
