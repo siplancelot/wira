@@ -145,24 +145,103 @@
 
             });
 
-            
+
             $.ajax({
                 url: "{{ route('transactionHD') }}", // Pastikan URL ini benar
                 type: "POST",
                 data: {
                     '_token': csrfToken,
                     'title': "Pembelian Stok Produk",
-                    'total': parseInt(totalStockBuy),
-                    'price': parseInt(totalPriceBuy)
+                    'total': totalStockBuy,
+                    'price': totalPriceBuy
                 },
                 success: function (data) {
-                    console.log('success:', data); // Tampilkan data sukses di konsol
+                    var stockBuyHDID = data.id;
+
+                    alert(stockBuyHDID);
+
+                    $.ajax({
+                        url: "{{route('outcome')}}",
+                        type: "POST",
+                        data: {
+                            '_token': csrfToken,
+                            'outcome_category_id': 1,
+                            'total': totalPriceBuy,
+                            'description': "--",
+                            'no_reference': stockBuyHDID
+                        },
+                        success: function (data) {
+                            console.log('success');
+                        },
+                        error: function (data) {
+                            console.log("gagal");
+                        }
+                    })
+
+
+                    $(".product-item").each(function () {
+                        var productID = $(this).find(".hdnProductId").val();
+                        var totalProductBuy = $(this).find(".txtStock").val();
+                        var totalProductPrice = $(this).find(".cost-product")
+                            .html();
+
+                        if (totalProductBuy != "" && totalProductPrice != "-") {
+                            $.ajax({
+                                url: "{{route('transactionDT')}}",
+                                type: "POST",
+                                data: {
+                                    '_token': csrfToken,
+                                    'transaction_stock_hd_id': stockBuyHDID,
+                                    'product_id': productID,
+                                    'total': totalProductBuy,
+                                    'price': totalProductPrice,
+                                },
+                                success: function (data) {
+                                    console.log("sukses masuk ke db stock dt");
+                                },
+                                error: function (data) {
+                                    console.log("gagal masuk ke db stock dt");
+                                }
+                            });
+                        }
+                    });
                 },
                 error: function (xhr, status, error) {
                     console.log("Error:", status, error); // Debug jika gagal
                 }
             });
 
+            $(".product-item").each(function () {
+                var totalStock = $(this).find(".total-stock").html();
+                var productID = $(this).find(".hdnProductId").val();
+                var stockID = $(this).find(".hdnStockId").val();
+
+                var stockInput = $(this).find(".txtStock").val();
+
+                if (stockInput != "") {
+
+                    $.ajax({
+                        url: "{{route('admin.stock.update', ':id')}}".replace(':id',
+                            stockID),
+                        type: "PATCH",
+                        data: {
+                            '_token': csrfToken,
+                            'product_id': productID,
+                            'stock': totalStock,
+                        },
+                        success: function (data) {
+
+                            console.log("sukses");
+                        },
+                        error: function (data) {
+                            console.log("gagal");
+                        }
+                    });
+
+
+                }
+            });
+            alert("Berhasil di update");
             location.reload();
         });
 

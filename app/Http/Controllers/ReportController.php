@@ -193,7 +193,7 @@ class ReportController extends Controller
             ->sum('total');
 
         $outcomeHistories = DB::table('transaction_stock_hd')
-            ->select('created_at', 'total', 'total')
+            ->select('created_at', 'total', 'price')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
             ->get();
 

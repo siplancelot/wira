@@ -148,7 +148,7 @@
                                   <td>{{ $loop->iteration }}</td>
                                   <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                   <td>{{ $item->total }}</td>
-                                  <td>Rp. {{ number_format($item->total, 2, '.', ',') }}</td>
+                                  <td>Rp. {{ number_format($item->price, 2, '.', ',') }}</td>
                                   <td>
                                     <a href="#" class="btn btn-primary">Detail</a>
                                   </td>
