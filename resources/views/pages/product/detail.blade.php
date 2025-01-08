@@ -35,24 +35,22 @@
                             <thead class="text-center">
                                 <tr>
                                     <th style="width: 10%">No</th>
-                                    <th>Nama</th>
-                                    <th>Action</th>
+                                    <th>Nama Produk</th>
+                                    <th>Kategori</th>
+                                    <th>Harga</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>Indomie</td>
-                                    <td class="text-center">
-                                        
-                                        <a href="#" class="btn btn-warning">
-                                            <i class="fas fa-pencil-alt"></i>
-                                        </a>
-                                        <a href="#" class="btn btn-danger">
-                                            <i class="fas fa-trash-alt"></i>
-                                        </a>
-                                    </td>
-                                </tr>
+                                @foreach ($productDetails as $product)
+                                    <tr>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ $product->product_name }}</td>
+                                        <td>{{ $product->category_name }}</td>
+                                        <td>
+                                            Rp {{ number_format($product->sell_price, 0, ',', '.') }}
+                                        </td>
+                                    </tr>
+                                @endforeach
                             </tbody>
 
                         </table>
