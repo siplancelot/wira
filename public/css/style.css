@@ -111,7 +111,6 @@ p{
 }
 
 .menus-content{
-  margin-top: 150px;
 }
 
 .cart-panel{
@@ -130,16 +129,15 @@ p{
   font-size: 20px;
   color: rgb(9, 9, 154);
   font-weight: 600;
-  margin-top: 20px;
+  padding-top: 100px !important;
 }
 
 .cart-panel .cart-header{
-  height: 5%;
-
+  height: 15%;
 }
 
 .cart-panel .cart-body{
-  height: 88%;
+  height: 78%;
   overflow-y: scroll;
 }
 

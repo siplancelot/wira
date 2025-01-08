@@ -24,18 +24,6 @@
 
 </div>
 
-<!-- <div class="category-content">
-    <div class="category-item shadow active" id="all">
-        <p class="text-center title-category">Semua</p>
-    </div>
-    @foreach ($categories as $item)
-    <div class="category-item shadow" id="{{$item->id}}">
-        <p class="text-center title-category">{{$item->category_name}}</p>
-    </div>
-
-    @endforeach
-</div> -->
-
 <div class="main-content container-fluid">
     <div class="menus-content">
         <div class="row item-list">

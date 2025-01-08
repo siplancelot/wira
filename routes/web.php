@@ -48,9 +48,7 @@ Route::get("admin/report/income", [ReportController::class, 'reportIncome'])->na
 Route::get("admin/report/outcome", [ReportController::class, 'reportOutcome'])->name("reportoutcome");
 Route::get("admin/order/detail", [OrderController::class, 'detailOrder'])->name("orderdetail");
 
-Route::get('/', function () {
-    return view('pages.home');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/',[HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 
 Route::middleware('auth')->group(function () {
