@@ -20,7 +20,7 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
-            <div class="col-4">
+            <div class="col-6">
                 <a href="{{route('reportincome')}}">
                     <div class="card">
                         <div class="card-body">
@@ -32,7 +32,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-4">
+            <div class="col-6">
                 <a href="{{ route('reportoutcome') }}">
                     <div class="card">
                         <div class="card-body">
@@ -44,32 +44,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-4">
-                <a href="#">
-                    <div class="card">
-                        <div class="card-body">
-                            <div style="display: flex; align-items: center;">
-                                <i class="fas fa-file" style="font-size: 20px; margin-right: 20px;"></i>
-                                <h4 style="margin: 0px;">Laporan Penjualan</h4>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-            <div class="col-4">
-                <a href="#">
-                    <div class="card">
-                        <div class="card-body">
-                            <div style="display: flex; align-items: center;">
-                                <i class="fas fa-file" style="font-size: 20px; margin-right: 20px;"></i>
-                                <h4 style="margin: 0px;">Laporan Pembelian</h4>
-                            </div>
-                        </div>
-                    </div>
-                </a>
-            </div>
-           
-
+            
             <!-- /.col -->
         </div>
         <!-- /.row -->

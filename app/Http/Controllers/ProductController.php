@@ -69,8 +69,6 @@ class ProductController extends Controller
             ->where('products.parent_id', $product->id)
             ->get();
 
-        dd($productDetails);
-
         return view('pages.product.detail', compact('productDetails'));
     }
 

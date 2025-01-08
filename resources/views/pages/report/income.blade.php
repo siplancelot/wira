@@ -87,12 +87,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                @if ($totalProfit > 0)
-                    <h3>Rp {{ number_format($totalProfit, 2, '.', ',') }}</h3>
-                @else
-                    <h3>Rp 0</h3>
-                @endif
-    
+                <h3>Rp {{ number_format($totalProfit, 2, '.', ',') }}</h3>
                 <p>Keuntungan</p>
               </div>
               <div class="icon">
