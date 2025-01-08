@@ -63,7 +63,15 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
-        //
+        $productDetails = DB::table('products')
+            ->join('categories', 'products.category_id', '=', 'categories.id')
+            ->select('products.*', 'categories.category_name')
+            ->where('products.parent_id', $product->id)
+            ->get();
+
+        dd($productDetails);
+
+        return view('pages.product.detail', compact('productDetails'));
     }
 
     /**
