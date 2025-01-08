@@ -125,43 +125,44 @@
         });
 
         $("#btnSaveStock").click(function () {
-            $(".product-item").each(function () {
-                var totalStock = $(this).find(".total-stock").html();
-                var productID = $(this).find(".hdnProductId").val();
-                var stockID = $(this).find(".hdnStockId").val();
 
+            var totalStockBuy = 0;
+            var totalPriceBuy = 0;
+
+            var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+            $(".product-item").each(function () {
                 var stockInput = $(this).find(".txtStock").val();
+                var stockPrice = $(this).find(".cost-product").html();
 
                 if (stockInput != "") {
-                    var csrfToken = $('meta[name="csrf-token"]').attr('content');
-                    
-                    // alert(stockID);
-                    // alert(productID);
-                    // alert(totalStock);
+                    totalStockBuy += parseInt(stockInput);
+                }
 
-                    
+                if (stockPrice != "-") {
+                    totalPriceBuy += parseInt(stockPrice);
+                }
 
-                    $.ajax({
-                        url: "{{route('admin.stock.update', ':id')}}".replace(':id',
-                            stockID),
-                        type: "PATCH",
-                        data: {
-                            '_token': csrfToken,
-                            'product_id': productID,
-                            'stock': totalStock,
-                        },
-                        success: function (data) {
-                            console.log('success');
-                        },
-                        error: function (data) {
-                            console.log("gagal");
-                        }
-                    });
+            });
 
-
+            
+            $.ajax({
+                url: "{{ route('transactionHD') }}", // Pastikan URL ini benar
+                type: "POST",
+                data: {
+                    '_token': csrfToken,
+                    'title': "Pembelian Stok Produk",
+                    'total': parseInt(totalStockBuy),
+                    'price': parseInt(totalPriceBuy)
+                },
+                success: function (data) {
+                    console.log('success:', data); // Tampilkan data sukses di konsol
+                },
+                error: function (xhr, status, error) {
+                    console.log("Error:", status, error); // Debug jika gagal
                 }
             });
-            alert("Berhasil di update");
+
             location.reload();
         });
 
@@ -181,7 +182,6 @@
 
                 divProduct.find('.cost-product').html("-");
             } else {
-
 
                 var dataStockNow = divProduct.find(".stock-product").html();
 
