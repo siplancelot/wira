@@ -118,6 +118,7 @@ class ReportController extends Controller
         $incomeHistories = DB::table('order_hd')
             ->select('created_at', 'total_product', 'total_price')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->orderByDesc('created_at')
             ->get();
 
         $otherIncomes = DB::table('incomes')
@@ -125,11 +126,13 @@ class ReportController extends Controller
             ->select('incomes.created_at', 'incomes.total', 'income_categories.name')
             ->whereBetween('incomes.created_at', [$dateData['startDate'], $dateData['endDate']])
             ->whereNot('income_categories.name', 'Penjualan Produk')
+            ->orderByDesc('created_at')
             ->get();
 
         $revenueByProducts = DB::table('wira.vorder_dt')
             ->selectRaw('created_at, product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->orderByDesc('created_at')
             ->get();
         
         $profits = DB::table('wira.vorder_dt')
@@ -195,6 +198,7 @@ class ReportController extends Controller
         $outcomeHistories = DB::table('transaction_stock_hd')
             ->select('created_at', 'total', 'price')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->orderByDesc('created_at')
             ->get();
 
         $otherOutcomes = DB::table('outcomes')
@@ -202,11 +206,13 @@ class ReportController extends Controller
             ->select('outcomes.created_at', 'outcomes.total', 'outcome_categories.name')
             ->whereBetween('outcomes.created_at', [$dateData['startDate'], $dateData['endDate']])
             ->whereNot('outcome_categories.name', 'Pembelian Produk')
+            ->orderByDesc('created_at')
             ->get();
         
         $outcomeByProducts = DB::table('wira.vtransaction_stock_dt')
             ->select('created_at', 'product_name', 'total', 'price')
             ->whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->orderByDesc('created_at')
             ->get();
 
         return view("pages.report.outcome", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalRestocks', 'totalOutcomes', 'outcomeHistories', 'otherOutcomes', 'outcomeByProducts'));
@@ -218,6 +224,12 @@ class ReportController extends Controller
                 return 'rgba(255, 99, 132, 0.2)';
                 break;
             case 'Tip':
+                return 'rgba(54, 162, 235, 0.2)';
+                break;
+            case 'Pembelian Produk':
+                return 'rgba(255, 99, 132, 0.2)';
+                break;
+            case 'Service / Perbaikan':
                 return 'rgba(54, 162, 235, 0.2)';
                 break;
             case 'Lain - lain':
