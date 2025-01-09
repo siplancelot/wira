@@ -63,15 +63,34 @@ class ProductController extends Controller
      */
     public function show(Product $product)
     {
+        session(['current_product' => $product]);
+
         $productDetails = DB::table('products')
             ->join('categories', 'products.category_id', '=', 'categories.id')
             ->select('products.*', 'categories.category_name')
             ->where('products.parent_id', $product->id)
+            ->whereNull('products.deleted_at')
             ->get();
 
-        dd($productDetails);
+        return view('pages.product.detail', compact('productDetails', 'product'));
+    }
 
-        return view('pages.product.detail', compact('productDetails'));
+    public function createVariants()
+    {
+        $product = session('current_product');
+
+        $categories = Category::all();
+
+        return view('pages.product.addVariant', compact('categories', 'product'));
+    }
+
+    public function editVariant(Product $product)
+    {
+        $productParentId = session('current_product');
+
+        $categories = Category::all();
+
+        return view('pages.product.editVariant', compact('product', 'categories', 'productParentId'));
     }
 
     /**

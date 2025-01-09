@@ -35,6 +35,9 @@ Route::post('admin/inputorderdt', [OrderController::class, 'inputOrderDt'])->nam
 Route::post('admin/inputtransactionstockhd', [TransactionStockController::class, 'inputTransactionStockHd'])->name('transactionHD');
 Route::post('admin/inputtransactionstockdt', [TransactionStockController::class, 'inputTransactionStockDt'])->name('transactionDT');
 
+Route::get('admin/createVariant', [ProductController::class, 'createVariants'])->name('createVariant');
+Route::get('admin/editVariant/{product}', [ProductController::class, 'editVariant'])->name('editVariant');
+
 Route::get('admin/inputincome', [TransactionController::class, 'createIncome'])->name('incomeCreateView');
 Route::get('admin/inputoutcome', [TransactionController::class, 'createOutcome'])->name('outcomeCreateView');
 

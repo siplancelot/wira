@@ -28,7 +28,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="#" class="btn btn-primary">
+                        <a href="{{ route('createVariant') }}" class="btn btn-primary">
                             Tambah Data
                         </a>
                         <table class="myTable table table-bordered table-hover">
@@ -38,6 +38,7 @@
                                     <th>Nama Produk</th>
                                     <th>Kategori</th>
                                     <th>Harga</th>
+                                    <th>Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -48,6 +49,18 @@
                                         <td>{{ $product->category_name }}</td>
                                         <td>
                                             Rp {{ number_format($product->sell_price, 0, ',', '.') }}
+                                        </td>
+                                        <td class="text-center">
+                                            <a href="{{ route('editVariant', $product->id) }}" class="btn btn-warning">
+                                                <i class="fas fa-pencil-alt"></i>
+                                            </a>
+                                            <form action="{{ route('admin.product.destroy', $product->id) }}" method="POST" class="d-inline">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger">
+                                                    <i class="fas fa-trash-alt"></i>
+                                                </button>
+                                            </form>
                                         </td>
                                     </tr>
                                 @endforeach
