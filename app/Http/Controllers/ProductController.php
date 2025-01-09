@@ -71,7 +71,7 @@ class ProductController extends Controller
             ->where('products.parent_id', $product->id)
             ->whereNull('products.deleted_at')
             ->get();
-
+      
         return view('pages.product.detail', compact('productDetails', 'product'));
     }
 
@@ -91,6 +91,7 @@ class ProductController extends Controller
         $categories = Category::all();
 
         return view('pages.product.editVariant', compact('product', 'categories', 'productParentId'));
+      
     }
 
     /**
