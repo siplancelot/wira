@@ -44,6 +44,13 @@ Route::get('admin/inputoutcome', [TransactionController::class, 'createOutcome']
 Route::post('admin/inputincome', [TransactionController::class, 'storeIncome'])->name('income');
 Route::post('admin/inputoutcome', [TransactionController::class, 'storeOutcome'])->name('outcome');
 
+Route::get('admin/income/exportProductsIncome', [ReportController::class, 'exportProductsIncome'])->name('exportProductsIncome');
+Route::get('admin/income/exportOthersIncome', [ReportController::class, 'exportOthersIncome'])->name('exportOthersIncome');
+Route::get('admin/income/exportIncomeByProduct', [ReportController::class, 'exportIncomeByProduct'])->name('exportIncomeByProduct');
+Route::get('admin/outcome/exportOutcomeHistories', [ReportController::class, 'exportOutcomeHistories'])->name('exportOutcomeHistories');
+Route::get('admin/outcome/exportOtherOutcomes', [ReportController::class, 'exportOtherOutcomes'])->name('exportOtherOutcomes');
+Route::get('admin/outcome/exportOutcomeByProduct', [ReportController::class, 'exportOutcomeByProduct'])->name('exportOutcomeByProduct');
+
 Route::get("admin/order", [OrderController::class, 'index'])->name("orderview");
 Route::get("admin/income", [TransactionController::class, 'viewIncome'])->name("incomeview");
 Route::get("admin/outcome", [TransactionController::class, 'viewOutcome'])->name("outcomeview");

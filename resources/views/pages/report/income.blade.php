@@ -127,6 +127,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <a href="{{ route('exportProductsIncome') }}" class="btn btn-primary">Download PDF</a>
                         <table class="myTable table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
@@ -162,6 +163,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
+                      <a href="{{ route('exportOthersIncome') }}" class="btn btn-primary">Download PDF</a>
                       <table class="myTable table table-bordered table-hover">
                           <thead class="text-center">
                               <tr>
@@ -199,6 +201,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <a href="{{ route('exportIncomeByProduct') }}" class="btn btn-primary">Download PDF</a>
                     <table class="myTable table table-bordered table-hover">
                         <thead class="text-center">
                             <tr>
