@@ -2,10 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\incomeByProductExport;
+use App\Exports\OtherOutcomesExport;
+use App\Exports\OthersIncomeExport;
+use App\Exports\OutcomeByProductExport;
+use App\Exports\OutcomeHistoriesExport;
+use App\Exports\ProductsIncomeExport;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
+use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 
 class ReportController extends Controller
 {
@@ -68,6 +76,8 @@ class ReportController extends Controller
     public function reportIncome(Request $request){
         $range = $request->input('range', '7days');
         $dateData = $this->getDateRangeData($range);
+
+        session(['dateData' => $dateData]);
 
         $totalDataPie = DB::table('wira.vorder_dt')
             ->select(
@@ -216,6 +226,42 @@ class ReportController extends Controller
             ->get();
 
         return view("pages.report.outcome", compact('totalDataPie', 'totalDataBar', 'totalOrder', 'totalRestocks', 'totalOutcomes', 'outcomeHistories', 'otherOutcomes', 'outcomeByProducts'));
+    }
+
+    public function exportProductsIncome() {
+        $dateData = session('dateData');
+
+        return Excel::download(new ProductsIncomeExport($dateData['startDate'], $dateData['endDate']), 'ProductsIncome.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportOthersIncome() {
+        $dateData = session('dateData');
+
+        return Excel::download(new OthersIncomeExport($dateData['startDate'], $dateData['endDate']), 'OthersIncome.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportIncomeByProduct() {
+        $dateData = session('dateData');
+
+        return Excel::download(new incomeByProductExport($dateData['startDate'], $dateData['endDate']), 'IncomeByProduct.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportOutcomeHistories() {
+        $dateData = session('dateData');
+
+        return Excel::download(new OutcomeHistoriesExport($dateData['startDate'], $dateData['endDate']), 'OutcomeHistories.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportOtherOutcomes() {
+        $dateData = session('dateData');
+
+        return Excel::download(new OtherOutcomesExport($dateData['startDate'], $dateData['endDate']), 'OtherOutcomes.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+    }
+
+    public function exportOutcomeByProduct() {
+        $dateData = session('dateData');
+
+        return Excel::download(new OutcomeByProductExport($dateData['startDate'], $dateData['endDate']), 'OutcomeByProduct.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
     }
 
     public function getCategoryColor($category) {

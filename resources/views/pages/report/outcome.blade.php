@@ -74,7 +74,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3>Rp {{ $totalOutcomes > 0 ? number_format($totalOutcomes, 2, '.', ',') : '0' }}</h3>
+                <h3>Rp {{ number_format($totalOutcomes, 2, '.', ',') }}</h3>
                 <p>Pengeluaran</p>
               </div>
               <div class="icon">
@@ -132,6 +132,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
+                        <a href="{{ route('exportOutcomeHistories') }}" class="btn btn-primary">Download PDF</a>
                         <table class="myTable table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
@@ -167,6 +168,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
+                      <a href="{{ route('exportOtherOutcomes') }}" class="btn btn-primary">Download PDF</a>
                       <table class="myTable table table-bordered table-hover">
                           <thead class="text-center">
                               <tr>
@@ -204,6 +206,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
+                    <a href="{{ route('exportOutcomeByProduct') }}" class="btn btn-primary">Download PDF</a>
                     <table class="myTable table table-bordered table-hover">
                         <thead class="text-center">
                             <tr>
