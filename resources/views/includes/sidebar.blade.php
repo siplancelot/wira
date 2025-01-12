@@ -88,9 +88,6 @@
                 <p>Pengeluaran</p>
               </a>
             </li>
-            
-
-            
           </ul>
         </li>
         
@@ -101,10 +98,12 @@
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-folder nav-icon"></i>
-            <p>User</p>
-          </a>
+          @role('admin')
+            <a href="{{ route('admin.user.index') }}" class="nav-link">
+              <i class="fas fa-folder nav-icon"></i>
+              <p>User</p>
+            </a>
+          @endrole
         </li>
         {{-- <li class="nav-item">
           <a href="#" class="nav-link">

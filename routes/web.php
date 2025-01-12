@@ -12,6 +12,7 @@ use App\Http\Controllers\ConsoleController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\TransactionStockController;
+use App\Http\Controllers\UserController;
 
 // Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route::get('/product', [ProductController::class, 'index'])->name('product');
@@ -27,7 +28,7 @@ Route::get('/console', [ConsoleController::class, 'index'])->name('console');
 Route::get('/search', [ConsoleController::class, 'filterCategory'])->name('search');
 Route::get('/getvariant', [ConsoleController::class, 'getVariant'])->name('getvariant');
 Route::post('/login', [LoginController::class, 'login']);
-Route::post('/logout', [LoginController::class, 'logout']);
+Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 Route::post('admin/inputorderhd', [OrderController::class, 'inputOrderHd'])->name('orderHD');
 Route::post('admin/inputorderdt', [OrderController::class, 'inputOrderDt'])->name('orderDT');
@@ -79,8 +80,8 @@ Route::middleware('auth')->group(function () {
             Route::resource('category', CategoryController::class);
         });
 
-        // Route::middleware(['role:admin', 'permission:manage user'])->group(function () {
-        //     Route::resource('user', UserController::class);
-        // });
+        Route::middleware(['role:admin', 'permission:manage user'])->group(function () {
+            Route::resource('user', UserController::class);
+        });
     });
 });
