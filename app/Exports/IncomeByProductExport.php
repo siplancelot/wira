@@ -6,8 +6,10 @@ use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class IncomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize
+class IncomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $startDate;
     protected $endDate;
@@ -16,6 +18,14 @@ class IncomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1    => ['font' => ['bold' => true]],
+        ];
     }
 
     public function headings(): array

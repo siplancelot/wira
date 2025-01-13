@@ -132,7 +132,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <a href="{{ route('exportOutcomeHistories') }}" class="btn btn-primary">Download PDF</a>
+                        <a href="{{ route('exportOutcomeHistories') }}" class="btn btn-primary">Download Excel</a>
                         <table class="myTable table table-bordered table-hover">
                             <thead class="text-center">
                                 <tr>
@@ -168,7 +168,7 @@
                   </div>
                   <!-- /.card-header -->
                   <div class="card-body">
-                      <a href="{{ route('exportOtherOutcomes') }}" class="btn btn-primary">Download PDF</a>
+                      <a href="{{ route('exportOtherOutcomes') }}" class="btn btn-primary">Download Excel</a>
                       <table class="myTable table table-bordered table-hover">
                           <thead class="text-center">
                               <tr>
@@ -206,7 +206,7 @@
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
-                    <a href="{{ route('exportOutcomeByProduct') }}" class="btn btn-primary">Download PDF</a>
+                    <a href="{{ route('exportOutcomeByProduct') }}" class="btn btn-primary">Download Excel</a>
                     <table class="myTable table table-bordered table-hover">
                         <thead class="text-center">
                             <tr>

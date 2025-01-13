@@ -7,8 +7,10 @@ use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\FromQuery;
 use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Concerns\WithStyles;
+use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class OutcomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize
+class OutcomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize, WithStyles
 {
     protected $startDate;
     protected $endDate;
@@ -17,6 +19,14 @@ class OutcomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize
     {
         $this->startDate = $startDate;
         $this->endDate = $endDate;
+    }
+
+    public function styles(Worksheet $sheet)
+    {
+        return [
+            // Style the first row as bold text.
+            1    => ['font' => ['bold' => true]],
+        ];
     }
 
     public function headings(): array
