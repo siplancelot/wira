@@ -4,9 +4,10 @@ namespace App\Exports;
 
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class OutcomeHistoriesExport implements FromQuery, WithHeadings
+class OutcomeHistoriesExport implements FromQuery, WithHeadings, ShouldAutoSize
 {
     protected $startDate;
     protected $endDate;
