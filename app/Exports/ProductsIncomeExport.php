@@ -4,9 +4,10 @@ namespace App\Exports;
 
 use App\Models\OrderHd;
 use Maatwebsite\Excel\Concerns\FromQuery;
+use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 
-class ProductsIncomeExport implements FromQuery, WithHeadings
+class ProductsIncomeExport implements FromQuery, WithHeadings, ShouldAutoSize
 {
     protected $startDate;
     protected $endDate;
