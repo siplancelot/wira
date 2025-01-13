@@ -13,7 +13,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Facades\Excel;
-use PhpOffice\PhpSpreadsheet\Writer\Pdf\Dompdf;
 
 class ReportController extends Controller
 {
@@ -231,37 +230,37 @@ class ReportController extends Controller
     public function exportProductsIncome() {
         $dateData = session('dateData');
 
-        return Excel::download(new ProductsIncomeExport($dateData['startDate'], $dateData['endDate']), 'ProductsIncome.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new ProductsIncomeExport($dateData['startDate'], $dateData['endDate']), 'ProductsIncome.xlsx',);
     }
 
     public function exportOthersIncome() {
         $dateData = session('dateData');
 
-        return Excel::download(new OthersIncomeExport($dateData['startDate'], $dateData['endDate']), 'OthersIncome.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new OthersIncomeExport($dateData['startDate'], $dateData['endDate']), 'OthersIncome.xlsx',);
     }
 
     public function exportIncomeByProduct() {
         $dateData = session('dateData');
 
-        return Excel::download(new incomeByProductExport($dateData['startDate'], $dateData['endDate']), 'IncomeByProduct.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new incomeByProductExport($dateData['startDate'], $dateData['endDate']), 'IncomeByProduct.xlsx',);
     }
 
     public function exportOutcomeHistories() {
         $dateData = session('dateData');
 
-        return Excel::download(new OutcomeHistoriesExport($dateData['startDate'], $dateData['endDate']), 'OutcomeHistories.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new OutcomeHistoriesExport($dateData['startDate'], $dateData['endDate']), 'OutcomeHistories.xlsx',);
     }
 
     public function exportOtherOutcomes() {
         $dateData = session('dateData');
 
-        return Excel::download(new OtherOutcomesExport($dateData['startDate'], $dateData['endDate']), 'OtherOutcomes.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new OtherOutcomesExport($dateData['startDate'], $dateData['endDate']), 'OtherOutcomes.xlsx',);
     }
 
     public function exportOutcomeByProduct() {
         $dateData = session('dateData');
 
-        return Excel::download(new OutcomeByProductExport($dateData['startDate'], $dateData['endDate']), 'OutcomeByProduct.pdf', \Maatwebsite\Excel\Excel::DOMPDF);
+        return Excel::download(new OutcomeByProductExport($dateData['startDate'], $dateData['endDate']), 'OutcomeByProduct.xlsx',);
     }
 
     public function getCategoryColor($category) {
