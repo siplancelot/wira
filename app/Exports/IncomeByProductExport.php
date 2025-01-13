@@ -43,7 +43,7 @@ class IncomeByProductExport implements FromQuery, WithHeadings, ShouldAutoSize, 
     public function query()
     {
         return DB::table('wira.vorder_dt')
-            ->selectRaw("DATE_FORMAT(incomes.created_at, '%e %b %Y'), product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit")
+            ->selectRaw("DATE_FORMAT(created_at, '%e %b %Y'), product_name, total, sell_price * total AS revenue, buy_price * total AS capital, sell_price * total - buy_price * total AS profit")
             ->whereBetween('created_at', [$this->startDate, $this->endDate])
             ->orderByDesc('created_at');
     }
