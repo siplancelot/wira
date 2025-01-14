@@ -13,7 +13,7 @@
         <img src="{{ asset("")}}dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
       </div>
       <div class="info">
-        <a href="#" class="d-block">Alexander Pierce</a>
+        <a href="#" class="d-block">{{ Auth::user()->name }}</a>
       </div>
     </div>
 
@@ -21,47 +21,47 @@
     <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
         <!-- Add icons to the links using the .nav-icon class
-             with font-awesome or any other icon font library -->
+            with font-awesome or any other icon font library -->
         <li class="nav-item">
           <a href="{{ route('dashboard') }}" class="nav-link">
             <i class="nav-icon fas fa-tachometer-alt"></i>
-            <p>
-              Console Kasir
-            </p>
+            <p>Console Kasir</p>
           </a>
         </li>
         
         <li class="nav-header">Menu</li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-folder nav-icon"></i>
-            <p>
-              Produk
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="{{ route('admin.product.index') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Data Produk</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('admin.category.index') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Kategori Produk</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="{{ route('admin.stock.index') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Manajemen Stok</p>
-              </a>
-            </li>
-            
-          </ul>
-        </li>
+        @role('admin')
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-folder nav-icon"></i>
+              <p>
+                Produk
+                <i class="right fas fa-angle-left"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('admin.product.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Data Produk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.category.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Kategori Produk</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('admin.stock.index') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Manajemen Stok</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        @endrole
+
         <li class="nav-item">
           <a href="#" class="nav-link">
             <i class="nav-icon fas fa-folder nav-icon"></i>
@@ -77,81 +77,37 @@
                 <p>Pemesanan</p>
               </a>
             </li>
-            <li class="nav-item">
-              <a href="{{ route('incomeview') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pemasukan</p>
-              </a>
-            </li><li class="nav-item">
-              <a href="{{ route('outcomeview') }}" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pengeluaran</p>
-              </a>
-            </li>
+            @role('admin')
+              <li class="nav-item">
+                <a href="{{ route('incomeview') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pemasukan</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('outcomeview') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pengeluaran</p>
+                </a>
+              </li>
+            @endrole
           </ul>
         </li>
-        
-        <li class="nav-item">
-          <a href="{{route('admin.report.index')}}" class="nav-link">
-            <i class="fas fa-folder nav-icon"></i>
-            <p>Laporan</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          @role('admin')
+
+        @role('admin')
+          <li class="nav-item">
+            <a href="{{route('admin.report.index')}}" class="nav-link">
+              <i class="fas fa-folder nav-icon"></i>
+              <p>Laporan</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="{{ route('admin.user.index') }}" class="nav-link">
               <i class="fas fa-folder nav-icon"></i>
               <p>User</p>
             </a>
-          @endrole
-        </li>
-        {{-- <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="fas fa-circle nav-icon"></i>
-            <p>Menu 1</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a href="#" class="nav-link">
-            <i class="nav-icon fas fa-circle"></i>
-            <p>
-              Menu 2
-              <i class="right fas fa-angle-left"></i>
-            </p>
-          </a>
-          <ul class="nav nav-treeview">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>submenu 1</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>
-                  submenu 2
-                  <i class="right fas fa-angle-left"></i>
-                </p>
-              </a>
-              <ul class="nav nav-treeview">
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>sub submenu 1</p>
-                  </a>
-                </li>
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-dot-circle nav-icon"></i>
-                    <p>sub submenu 2</p>
-                  </a>
-                </li>
-              </ul>
-            </li>
-            
-          </ul>
-        </li> --}}
+          </li>
+        @endrole
       </ul>
     </nav>
     <!-- /.sidebar-menu -->
