@@ -45,14 +45,14 @@
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Password</label>
-                                <input type="text" class="form-control" name="password" id="password" placeholder="Masukkan Password">
+                                <label>Username</label>
+                                <input type="text" class="form-control" name="username" id="username" placeholder="Masukkan Username">
                               </div>
                             </div>
                             <div class="col-md-6">
                               <div class="form-group">
-                                <label>Username</label>
-                                <input type="text" class="form-control" name="username" id="username" placeholder="Masukkan Password">
+                                <label>Password</label>
+                                <input type="password" class="form-control" name="password" id="password" placeholder="Masukkan Password">
                               </div>
                             </div>
                           </div>
