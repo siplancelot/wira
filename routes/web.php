@@ -27,6 +27,7 @@ Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::get('/console', [ConsoleController::class, 'index'])->name('console');
 Route::get('/search', [ConsoleController::class, 'filterCategory'])->name('search');
 Route::get('/getvariant', [ConsoleController::class, 'getVariant'])->name('getvariant');
+Route::get('/getonestock', [StockController::class, 'getOneDataStock'])->name('getonestock');
 Route::post('/login', [LoginController::class, 'login']);
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 

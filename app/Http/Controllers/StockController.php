@@ -24,6 +24,19 @@ class StockController extends Controller
         return view('pages.stock.detail');
     }
 
+    public function getOneDataStock(Request $request){
+        $request->validate([
+            'query' => 'required|integer', 
+        ]);
+    
+        $query = $request->get('query');
+    
+        $stock = Stock::where('product_id', $query)->get();
+    
+        // Return the stock as JSON
+        return response()->json($stock);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
