@@ -10,17 +10,78 @@ use Illuminate\Http\Request;
 
 use App\Models\OrderHd;
 use App\Models\Product;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
+use InvalidArgumentException;
 
 class OrderController extends Controller
 {
+    private function getDateRangeData(string $range): array
+    {
+        Carbon::setLocale('id');
+
+        switch ($range) {
+            case 'today':
+                $startDate = Carbon::today()->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $days = 1;
+                break;
+            case 'yesterday':
+                $startDate = Carbon::yesterday()->startOfDay();
+                $endDate = Carbon::yesterday()->endOfDay();
+                $days = 1;
+                break;
+            case '30days':
+                $startDate = Carbon::now()->subDays(29)->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $days = 30;
+                break;
+            case '7days':
+                $startDate = Carbon::now()->subDays(6)->startOfDay();
+                $endDate = Carbon::now()->endOfDay();
+                $days = 7;
+                break;
+            default:
+                throw new InvalidArgumentException('Invalid date range provided');
+        }
+
+        // Generate actual dates based on the range
+        if ($range === 'yesterday') {
+            $actualDates = [Carbon::yesterday()->toDateString()];
+        } elseif ($range === 'today') {
+            $actualDates = [Carbon::today()->toDateString()];
+        } else {
+            $actualDates = collect(range($days - 1, 0))
+                ->map(fn ($day) => Carbon::now()->subDays($day)->toDateString())
+                ->values()
+                ->toArray();
+        }
+
+        return [
+            'startDate' => $startDate,
+            'endDate' => $endDate,
+            'actualDates' => $actualDates,
+            'days' => $days,
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $orderhd = OrderHd::orderByDesc('id')->get();
 
-        $orderhd = OrderHd::all();
+        return view("pages.transaction.order.index", compact('orderhd'));
+    }
+
+    public function displayByDate(Request $request) {
+        $range = $request->get('range', '30days');
+        $dateData = $this->getDateRangeData($range);
+
+        $orderhd = OrderHd::whereBetween('created_at', [$dateData['startDate'], $dateData['endDate']])
+            ->orderByDesc('id')
+            ->get();
 
         return view("pages.transaction.order.index", compact('orderhd'));
     }
