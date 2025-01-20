@@ -589,67 +589,6 @@
         alert("Data berhasil dihapus");
     });
 
-    // $(document).on("click", ".card-product", function () {
-    //     var title = $(this).find(".title").html();
-    //     var pricePrimary = $(this).find(".hdnPrice").val();
-    //     var id = $(this).attr("id");
-
-    //     $.ajax({
-    //         url: "{{route('getvariant')}}",
-    //         type: "GET",
-    //         data: {
-    //             'query': id
-    //         },
-    //         success: function (data) {
-    //             $(".variant-list").empty();
-
-    //             if (data.length > 0) {
-    //                 $.each(data, function (index, value) {
-
-    //                     var stockValue = 0;
-
-
-    //                     var newDiv = $($('#tmpVariant').html());
-
-    //                     newDiv.find('.rboVariant').attr('id', value.id);
-    //                     newDiv.find('.rboVariant').attr('value', value.id);
-
-    //                     newDiv.find('.hdnPrice').val(value.sell_price);
-
-    //                     newDiv.find(".title-variant").html(value.product_name);
-
-    //                     $.ajax({
-    //                         url: "{{route('getonestock')}}",
-    //                         type: "GET",
-    //                         data: {
-    //                             'query': value.id
-    //                         },
-    //                         success: function (data2) {
-
-    //                             stockValue += parseInt(data2[0].stock);
-
-    //                             console.log(stockValue);
-    //                             // console.log(data2[0].stock);
-
-    //                         }
-    //                     })
-
-    //                     newDiv.find(".stock-available").html(stockValue);
-
-
-    //                     $(".variant-list").append(newDiv);
-    //                 })
-    //             } else {
-    //                 $(".variant-list").append(
-    //                     '<p class="text-center">Data tidak tersedia</p>');
-    //             }
-    //         }
-    //     })
-
-    //     $(".modal").find(".modal-title").html(title);
-    //     $(".modal").find(".hdnPricePrimary").val(pricePrimary);
-    // });
-
 </script>
 
 @endsection

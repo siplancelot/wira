@@ -158,8 +158,6 @@
                 success: function (data) {
                     var stockBuyHDID = data.id;
 
-                    alert(stockBuyHDID);
-
                     $.ajax({
                         url: "{{route('outcome')}}",
                         type: "POST",
