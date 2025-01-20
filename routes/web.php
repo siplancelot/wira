@@ -60,6 +60,8 @@ Route::get("admin/report/income", [ReportController::class, 'reportIncome'])->na
 Route::get("admin/report/outcome", [ReportController::class, 'reportOutcome'])->name("reportoutcome");
 Route::get("admin/order/detail", [OrderController::class, 'detailOrder'])->name("orderdetail");
 
+Route::get('admin/orderDate', [OrderController::class, 'displayByDate'])->name('orderDate');
+
 Route::get('/',[HomeController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 

@@ -20,6 +20,27 @@
 <section class="content">
     <div class="container-fluid">
         <div class="row">
+          <div class="col-lg-12">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">Filter Waktu</h3>
+              </div>
+              <div class="card-body">
+                <form action="{{ route('orderDate') }}" method="get">
+                  <select name="range" class="form-control" onchange="handleFilterChange(this)">
+                    <option value="" >Pilih filter waktu</option>
+                    <option value="today" {{ request('range') == 'today' ? 'selected' : '' }}>Hari Ini</option>
+                    <option value="yesterday" {{ request('range') == 'yesterday' ? 'selected' : '' }}>Kemarin</option>
+                    <option value="7days" {{ request('range') == '7days' ? 'selected' : '' }}>7 Hari Terakhir</option>
+                    <option value="30days" {{ request('range') == '30days' ? 'selected' : '' }}>30 Hari Terakhir</option>
+                  </select>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
             <div class="col-12">
                 <div class="card">
                     <div class="card-header">
@@ -38,17 +59,19 @@
                                     <th>Atas Nama</th>
                                     <th>Total Produk</th>
                                     <th>Total Harga</th>
+                                    <th>Tanggal</th>
                                     <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($orderhd as $item)
                                 <tr class="order-detail">
-                                    <td>{{$loop->iteration}}</td>
-                                    <td>{{$item->title}}</td>
-                                    <td class="name-order">{{$item->name}}</td>
-                                    <td>{{$item->total_product}}</td>
-                                    <td>{{$item->total_price}}</td>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $item->title }}</td>
+                                    <td class="name-order">{{ $item->name }}</td>
+                                    <td>{{ $item->total_product }}</td>
+                                    <td>{{ $item->total_price }}</td>
+                                    <td>{{ \Carbon\Carbon::parse($item->created_at)->format('M d, Y') }}</td>
                                     <td>
                                         <div class="btn btn-primary btn-order-detail" data-toggle="modal"
                                             data-target="#modalDetailOrder" id="{{$item->id}}">
@@ -108,6 +131,18 @@
 
 @section('scripts')
 <script>
+    function handleFilterChange(select) {
+        const selectedValue = select.value;
+
+        if (selectedValue === "") {
+            // Redirect to a specific page when "Pilih filter waktu" is selected
+            window.location.href = "{{ route('orderview') }}"; // Replace 'specificPage' with the route name
+        } else {
+            // Submit the form for other options
+            select.form.submit();
+        }
+    }
+
     $(document).ready(function () {
         $(".btn-order-detail").click(function () {
             $(".item-checkout-list").empty(); // Clear the container
